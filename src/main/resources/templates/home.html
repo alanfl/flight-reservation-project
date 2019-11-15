@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Flight Finder</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:300");
+        @import url("https://fonts.googleapis.com/css?family=Rock+Salt");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Code Pro';
+            text-decoration: none;
+        }
+
+        .page {
+            padding: 16px;
+            font-size: 90%;
+        }
+
+        .page .search {
+            padding: 8px;
+            margin: 8px 0 32px 0;
+            border: 1px dotted lightgrey;
+            border-radius: 5px;
+        }
+
+        .page .search input {
+            padding: 8px;
+        }
+
+        .page .search input[type=date] {
+            padding: 6px;
+        }
+
+        .page .result {
+            padding: 8px;
+            border: 1px solid lightgrey;
+            border-radius: 5px;
+        }
+
+        .page .result .filter {
+            margin: 8px;
+            display: inline-block;
+        }
+
+        .page .result .flights {
+            width: 100%;
+            margin-top: 8px;
+            border-collapse: collapse;
+            font-size: 80%;
+            text-align: center;
+        }
+
+        .page .result .flights tr {
+            border: 1px solid lightgrey;
+            border-width: 1px 0 0 0;
+        }
+
+        .page .result .flights th,
+        .page .result .flights td {
+            padding: 8px;
+        }
+
+        .page .result .flights th {
+            font-weight: bold;
+        }
+
+        .page .data {
+            display: none;
+        }
+
+        .header {
+            display: block;
+            width: 100%;
+            padding: 16px;
+        }
+
+        .header .logo {
+            color: dodgerblue;
+            font-family: 'rock salt';
+            font-weight: bold;
+            font-size: 140%;
+            text-transform: capitalize;
+            background-image: url("https://icon-library.net/images/aeroplane-icon/aeroplane-icon-6.jpg");
+            background-size: 42px 42px;
+            background-repeat: no-repeat;
+            background-position: 40% 0;
+        }
+
+        .header .nav {
+            float: right;
+            margin-top: 24px;
+            margin-right: 24px;
+            font-size: 80%;
+        }
+
+        .footer {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            position: fixed;
+            bottom: 0;
+            font-size: 70%;
+            text-align: center;
+        }
+
+        .dialog {
+            display: none;
+            padding: 24px;
+            position: absolute;
+            top: 12vh;
+            left: 10vw;
+            width: 80vw;
+            height: 80vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            box-shadow: 5px 5px #eee;
+        }
+
+        .dialog * {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin: 16px 0;
+        }
+
+        .dialog input[type=submit] {
+            display: block;
+            padding: 8px 16px;
+            width: auto;
+            margin: 32px auto;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body translate="no">
+    <div id="app">
+        <div class="header">
+            <a class="logo" href="/"><img th:src="@{/img/logo.png}" alt="imagenotfound" /></a>
+            <a th:if="${#httpServletRequest.remoteUser}" class="nav" href="/logout">logout</a>
+            <span th:if="${#httpServletRequest.remoteUser}" th:inline="text" class="nav">Hi, [[${#httpServletRequest.remoteUser}]]</span>
+            <a th:if="${#httpServletRequest.remoteUser}==null" class="nav" href="/login">login</a>
+        </div>
+        <div class="page" v-show="currentPage=='pageone'">
+            <div class="search">
+                <input type="text" name="departure_airport" placeholder="Departure Airport" />
+                <input type="text" name="arrival_airport" placeholder="Arrival Airport" />
+                <input type="date" name="departure_date" value="2019-11-22" />
+                <input type="date" name="return_date" value="2019-11-29" />
+                <input type="Submit" value="Search" />
+            </div>
+            <div class="result">
+                <span>Flights found:</span>
+                <div class="filter">
+                    <select v-model="filters.stops">
+                        <option value="" disabled="disabled">Stops</option>
+                        <option v-for="option in choices.stops" v-bind:value="option">
+                            {{ option }}
+                        </option>
+                    </select>
+                    <select v-model="filters.airlines">
+                        <option value="" disabled="disabled">Airlines</option>
+                        <option v-for="option in choices.airlines" v-bind:value="option">
+                            {{ option }}
+                        </option>
+                    </select>
+                    <select v-model="filters.times">
+                        <option value="" disabled="disabled">Times</option>
+                        <option v-for="option in choices.times" v-bind:value="option">
+                            {{ option }}
+                        </option>
+                    </select>
+                </div>
+                <table class="flights">
+                    <tr>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr v-for="(flight, index) in flights">
+                        <td>
+                            {{ flight.departure_airport }}
+                        </td>
+                        <td>
+                            {{ flight.arrival_airport }}
+                        </td>
+                        <td>
+                            <a href="">Select</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="data">
+                <p>JSON Data:</p>
+                <p>{{ ticket }}</p>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+            @Copyright 2019
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.3/vee-validate.js"></script>
+    <script id="rendered-js">
+        // Use Vue plugin - optional
+        Vue.use(VeeValidate);
+
+        // the page is data driven using v-* attributes
+
+        var appVM = new Vue({
+            el: '#app',
+            data: {
+                currentPage: 'pageone',
+                choices: {
+                    "stops": ["1", "2", "3+"],
+                    "airlines": ["UA", "DL"],
+                    "times": ["Morning", "Afternoon", "Evening"]
+                },
+                filters: {
+                    "stops": "",
+                    "airlines": "",
+                    "times": ""
+                },
+                ticket: {},
+                flights: {}
+            },
+            // special function will be automatcially invoked when you create Vue instance.  
+            created: function () {
+                // invoke ajax to get the data from server, if it is not new application
+                // fake it here
+                // You can actually do Ajax with callback here
+                // Notice, when Ajax come back, just simpley update data by assign json data to this.application
+                this.flights = [{
+                        "departure_airport": "EWR",
+                        "departure_date": "2019-11-20",
+                        "departure_time": "18:30:00",
+                        "arrival_airport": "BCN",
+                        "arrival_date": "2019-11-21",
+                        "arrival_time": "09:00:00"
+                    },
+                    {
+                        "departure_airport": "EWR",
+                        "departure_date": "2019-11-22",
+                        "departure_time": "12:30:00",
+                        "arrival_airport": "BCN",
+                        "arrival_date": "2019-11-22",
+                        "arrival_time": "19:45:00"
+                    }
+                ];
+            },
+            methods: {
+                book: function () {
+                    // invoke ajax to save data to server
+                    alert(JSON.stringify(this.ticket));
+                },
+                addFlight: function (index) {
+                    // this.ticket.flights.push();
+                },
+                removeFlight: function (index) {
+                    // this.ticket.flights.splice(index, 1);
+                }
+            }
+        });
+
+        // Non Vue code
+        function done() {
+            $('.dialog').hide();
+            // appVM.application.highschool = $('.dialog > input:checked').val();
+        }
+    </script>
+</body>
+
+</html>
