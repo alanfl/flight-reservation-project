@@ -20,7 +20,7 @@ CS336 Final Project
 3. After installing Maven, run `mvn -v` to verify that it has installed correctly.
 
 #### Java 8 JDK
-1. Check your current Java version by running `java -version` and ensuring that the JDK version is Java 8 or higher.
+1. Check your current Java version by running `java -version` and ensuring that the JDK version is Java 8. **Only Java 8 is compatiable with the project**
 
 2. If you do not have the appropriate JDK/Java version, install it using your preferred package manager OR follow the instructions in the link below (as usual, using a package manager makes all of this much easier)
 
