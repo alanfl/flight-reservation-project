@@ -41,19 +41,6 @@
             padding: 16px;
         }
 
-        .header .logo {
-            color: dodgerblue;
-            font-family: 'rock salt';
-            font-weight: bold;
-            font-size: 140%;
-            text-transform: capitalize;
-            text-decoration: none;
-            background-image: url("https://icon-library.net/images/aeroplane-icon/aeroplane-icon-6.jpg");
-            background-size: 42px 42px;
-            background-repeat: no-repeat;
-            background-position: 40% 0;
-        }
-
         .footer {
             display: block;
             width: 100%;
@@ -69,10 +56,10 @@
 <body translate="no">
     <div id="app">
         <div class="header">
-            <a class="logo" href="/">flight finder</a>
+            <a class="logo" href="/"><img src="/img/logo.png" alt="imagenotfound" /></a>
         </div>
         <form class="login" action="/adduser" method="post">
-            <p>Please fill up the form:</p>
+            <p>Register:</p>
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
             <input type="password" name="password-confirm" placeholder="Password confirmation">
