@@ -11,7 +11,7 @@ public class Airline {
         this.airlineId = airlineId;
     }
     
-    public AirLine(String airlineId, String airlineName) {
+    public Airline(String airlineId, String airlineName) {
         this.airlineId = airlineId;
         this.airlineName = airlineName;
     }
