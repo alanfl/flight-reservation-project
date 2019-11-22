@@ -33,7 +33,7 @@ public class AirlineService{
     public void delete(String airline_id) {
     jdbc.update("DELETE FROM airline WHERE airline_id=?", airline_id);
     }
-    
+  
     public Iterable<Airline> searchAirline(String[] names) {
     if (names != null) {
       return jdbc.query("SELECT airline_id FROM airline where username IN ?", 
