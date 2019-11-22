@@ -1,26 +1,26 @@
 package boot;
 
 public class Airline {
-    private String airlineId;
-    private String airlineName;
+    private String airline_Id;
+    private String airline_Name;
     
     public Airline() {
     }
     
-    public Airline(String airlineId) {
-        this.airlineId = airlineId;
+    public Airline(String airline_Id) {
+        this.airline_Id = airline_Id;
     }
     
-    public Airline(String airlineId, String airlineName) {
-        this.airlineId = airlineId;
-        this.airlineName = airlineName;
+    public Airline(String airline_Id, String airline_Name) {
+        this.airline_Id = airline_Id;
+        this.airline_Name = airline_Name;
     }
     
-    public String getAirlineId() {
-        return airlineId;
+    public String getAirline_Id() {
+        return airline_Id;
     }
     
-    public String getAirlineName() {
-        return airlineName;
+    public String getAirline_Name() {
+        return airline_Name;
     }
 }
