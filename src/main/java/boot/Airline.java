@@ -16,11 +16,11 @@ public class Airline {
         this.airline_name = airline_name;
     }
     
-    public String getAirline_id() {
+    public String getAirlineId() {
         return airline_id;
     }
     
-    public String getAirline_name() {
+    public String getAirlineName() {
         return airline_name;
     }
 }
