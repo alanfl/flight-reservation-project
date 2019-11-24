@@ -11,7 +11,7 @@ public class AirlineService{
     @Autowired
     private JdbcTemplate jdbc;
     
-      private static final Logger log = LoggerFactory.getLogger(AirlineService.class);
+    private static final Logger log = LoggerFactory.getLogger(AirlineService.class);
       
     public Airline save(Airline airline) {
       jdbc.update("INSERT INTO airline (airline_id, airline_name) VALUES (?, ?)", 
@@ -31,11 +31,11 @@ public class AirlineService{
     }
     
     public Airline update(Airline airline) {
-    jdbc.update("UPDATE airline SET airline_id=? WHERE airline_name=?", 
-      airline.getAirlineId(), airline.getAirlineName() // arguments
-    );
-    return user;
-  }
+      jdbc.update("UPDATE airline SET airline_id=? WHERE airline_name=?", 
+        airline.getAirlineId(), airline.getAirlineName() // arguments
+      );
+      return airline;
+    }
     
     public void delete(String airline_id) {
       jdbc.update("DELETE FROM airline WHERE airline_id=?", airline_id);
@@ -51,5 +51,5 @@ public class AirlineService{
           new Object[] {}, // arguments as array
           (rs, rowNum) -> new Airline(rs.getString("airline_id"))); // row mapper
       }
-  }
+    }
 }
