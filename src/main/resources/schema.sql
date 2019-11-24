@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `flight` (
   FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
 );
 
-CREATE TABLE IF NOT EXISTS 'flight_waitinglist' (
+CREATE TABLE IF NOT EXISTS `flight_waitinglist` (
   `flight_id` int NOT NULL,
   `airline_id` char(2) NOT NULL,
   `departure_weekday` varchar(16) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS 'flight_waitinglist' (
 CREATE TABLE IF NOT EXISTS `reservation` (
   `reservation_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `origin_airport` char(3) NOT NULL,
+  `origin_airport_id` char(3) NOT NULL,
   `purchase_date` date NOT NULL,
   `purchase_time` time NOT NULL,
   `departure_date` date NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `class` varchar(255) NOT NULL,
   `reservation_status` varchar(255) NOT NULL,
   PRIMARY KEY (reservation_id),
-  FOREIGN KEY (origin_airport) REFERENCES airport(airport_id),
+  FOREIGN KEY (origin_airport_id) REFERENCES airport(airport_id)
 );
 
 CREATE TABLE IF NOT EXISTS `ticket` (
