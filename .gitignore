@@ -25,8 +25,5 @@ hs_err_pid*
 target/
 .settings/
 .project
-<<<<<<< Updated upstream
 .sts4-cache
-=======
 .DS_Store
->>>>>>> Stashed changes

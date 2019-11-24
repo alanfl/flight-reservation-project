@@ -69,11 +69,10 @@ CREATE TABLE IF NOT EXISTS 'flight_waitinglist' (
   FOREIGN KEY (username) REFERENCES user(username)
 );
 
-CREATE TABLE IF NOT EXISTS `ticket` (
-  `ticket_id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `reservation` (
+  `reservation_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `from_airport` char(3) NOT NULL,
-  `to_airport` char(3) NOT NULL,
+  `origin_airport` char(3) NOT NULL,
   `purchase_date` date NOT NULL,
   `purchase_time` time NOT NULL,
   `departure_date` date NOT NULL,
@@ -82,20 +81,22 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `fee` DECIMAL(11, 2) NOT NULL,
   `special_meal` varchar(255),
   `class` varchar(255) NOT NULL,
-  PRIMARY KEY (ticket_id),
-  FOREIGN KEY (from_airport) REFERENCES airport(airport_id),
-  FOREIGN KEY (to_airport) REFERENCES airport(airport_id)
+  `reservation_status` varchar(255) NOT NULL,
+  PRIMARY KEY (reservation_id),
+  FOREIGN KEY (origin_airport) REFERENCES airport(airport_id),
 );
 
-CREATE TABLE IF NOT EXISTS `reservation` (
-  `reservation_id` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `ticket` (
   `ticket_id` int NOT NULL,
+  `reservation_id` int NOT NULL,
+  `leg_id` int NOT NULL,
   `airline_id` char(3) NOT NULL,
   `flight_id` int NOT NULL,
   `departure_weekday` varchar(16) NOT NULL,
-  `flight_date` date NOT NULL,
-  `status` varchar(16) NOT NULL,
-  PRIMARY KEY (reservation_id),
-  FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),
+  `departure_date` date NOT NULL,
+  `price` DECIMAL(11, 2) NOT NULL,
+  `waitlist_status` varchar(16) NOT NULL,
+  PRIMARY KEY (ticket_id),
+  FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id),
   FOREIGN KEY (airline_id, flight_id, departure_weekday) REFERENCES flight(airline_id, flight_id, departure_weekday)
 );
