@@ -30,6 +30,13 @@ public class AirlineService{
       );
     }
     
+    public Airline update(Airline airline) {
+    jdbc.update("UPDATE airline SET airline_id=? WHERE airline_name=?", 
+      airline.getAirlineId(), airline.getAirlineName() // arguments
+    );
+    return user;
+  }
+    
     public void delete(String airline_id) {
       jdbc.update("DELETE FROM airline WHERE airline_id=?", airline_id);
     }
