@@ -32,7 +32,7 @@ public class AirportService{
     
     public Airport update(Airport airport) {
       jdbc.update("UPDATE airport SET airport_id=? WHERE airport_name=?", 
-        airline.getAirportId(), airline.getAirportName() // arguments
+        airport.getAirportId(), airport.getAirportName() // arguments
       );
       return airport;
     }
