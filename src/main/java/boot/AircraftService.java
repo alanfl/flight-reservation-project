@@ -26,6 +26,7 @@ public class AircraftService{
         (rs, rowNum) -> new Aircraft(
           rs.getString("aircraft_id"), 
           rs.getString("aircraft_model")
+          rs.getString("airline_id")
         ) // row mapper 
       );
     }
