@@ -25,7 +25,7 @@ public class AircraftService{
         new Object[] { aircraft_id }, // arguments as array
         (rs, rowNum) -> new Aircraft(
           rs.getString("aircraft_id"), 
-          rs.getString("aircraft_model")
+          rs.getString("aircraft_model"),
           rs.getString("airline_id")
         ) // row mapper 
       );
