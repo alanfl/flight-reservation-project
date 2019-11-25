@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `flight` (
   `departure_time` time,
   `arrival_time` time,
   `price` DECIMAL(9, 2) NOT NULL,
+  `seats_remaining` int NOT NULL,
   PRIMARY KEY (airline_id, flight_id, departure_weekday),
   FOREIGN KEY (departure_airport_id) REFERENCES airport(airport_id),
   FOREIGN KEY (arrival_airport_id) REFERENCES airport(airport_id),
@@ -63,8 +64,10 @@ CREATE TABLE IF NOT EXISTS `flight_waitinglist` (
   `flight_id` int NOT NULL,
   `airline_id` char(2) NOT NULL,
   `departure_weekday` varchar(16) NOT NULL,
+  `departure_date` date NOT NULL,
   `username` varchar(255) NOT NULL,
-  PRIMARY KEY (airline_id, flight_id, departure_weekday),
+  `waitlist_date` date NOT NULL,
+  PRIMARY KEY (airline_id, flight_id, departure_weekday, username, waitlist_date),
   FOREIGN KEY (airline_id, flight_id, departure_weekday) REFERENCES flight(airline_id, flight_id, departure_weekday),
   FOREIGN KEY (username) REFERENCES user(username)
 );
@@ -96,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `departure_date` date NOT NULL,
   `price` DECIMAL(11, 2) NOT NULL,
   `waitlist_status` varchar(16) NOT NULL,
-  PRIMARY KEY (ticket_id),
+  PRIMARY KEY (ticket_id, leg_id),
   FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id),
   FOREIGN KEY (airline_id, flight_id, departure_weekday) REFERENCES flight(airline_id, flight_id, departure_weekday)
 );
