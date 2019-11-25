@@ -20,6 +20,7 @@ public class AircraftService{
       return aircraft;
     }
     
+    // TODO This query doesn't fetch the airline_id
     public Aircraft get(String aircraft_id) {
       return (Aircraft) jdbc.queryForObject("SELECT aircraft_id, aircraft_model FROM aircraft WHERE aircraft_id=?", 
         new Object[] { aircraft_id }, // arguments as array
@@ -31,6 +32,9 @@ public class AircraftService{
       );
     }
     
+    // This query doesn't update the airline_id
+    // This query also only modifies BY the model, not BY the id
+    // Should be modifying other fields BASED on the id
     public Aircraft update(Aircraft aircraft) {
       jdbc.update("UPDATE aircraft SET aircraft_id=? WHERE aircraft_model=?", 
         aircraft.getAircraftId(), aircraft.getAircraftModel() // arguments
@@ -42,6 +46,10 @@ public class AircraftService{
       jdbc.update("DELETE FROM aircraft WHERE aircraft_id=?", aircraft_id);
     }
   
+    // This query just doesn't make sense, and the rowmapper doesn't make any sense either
+    // The query to return aircraft should be selecting all the attributes for records that match an ID
+    // The constructor does not populate the fields required
+    // The alternate query needs to also select ALL attributes, not JUST the id
     public Iterable<Aircraft> searchAircrafts(String[] aircraft_ids) {
       if (aircraft_ids != null) {
         return jdbc.query("SELECT aircraft_id FROM aircraft where aircraft_id IN ?", 

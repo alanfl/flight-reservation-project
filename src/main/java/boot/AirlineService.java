@@ -30,6 +30,7 @@ public class AirlineService{
       );
     }
     
+    // Need to be updating ALL the required attributes
     public Airline update(Airline airline) {
       jdbc.update("UPDATE airline SET airline_id=? WHERE airline_name=?", 
         airline.getAirlineId(), airline.getAirlineName() // arguments
@@ -41,6 +42,8 @@ public class AirlineService{
       jdbc.update("DELETE FROM airline WHERE airline_id=?", airline_id);
     }
   
+    // This is searching for 'username' in airline table...
+    // Also, queries are not fetching all the required attributes
     public Iterable<Airline> searchAirlines(String[] airline_ids) {
       if (airline_ids != null) {
         return jdbc.query("SELECT airline_id FROM airline where username IN ?", 
