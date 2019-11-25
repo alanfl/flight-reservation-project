@@ -21,7 +21,7 @@ public class AirlineAPIController {
     }
 
 	@RequestMapping(value="/airline_id", method=RequestMethod.POST)
-    public AppUser createAppUser(@RequestBody Airline a) {
+    public Airline createAirline(@RequestBody Airline a) {
     	return as.save(a);
     }
 
