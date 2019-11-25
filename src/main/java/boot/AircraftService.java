@@ -15,7 +15,7 @@ public class AircraftService{
       
     public Aircraft save(Aircraft aircraft) {
       jdbc.update("INSERT INTO aircraft (aircraft_id, aircraft_model) VALUES (?, ?)", 
-        airline.getAircraftId(), airline.getAircraftModel() // arguments
+        aircraft.getAircraftId(), aircraft.getAircraftModel() // arguments
       );
       return aircraft;
     }
