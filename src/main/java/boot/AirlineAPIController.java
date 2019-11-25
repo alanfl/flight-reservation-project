@@ -31,7 +31,7 @@ public class AirlineAPIController {
     }
 
 	@RequestMapping(value="/airline/{airline_id}", method=RequestMethod.PUT)
-    public Airline updateAirline(@RequestBody Airine a) {
+    public Airline updateAirline(@RequestBody Airline a) {
         return as.update(a);
     }
 }
