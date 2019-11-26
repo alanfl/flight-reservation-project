@@ -30,6 +30,7 @@ public class AirportService{
       );
     }
     
+    // This needs to not be updating the ID, or updating ALL fields required
     public Airport update(Airport airport) {
       jdbc.update("UPDATE airport SET airport_id=? WHERE airport_name=?", 
         airport.getAirportId(), airport.getAirportName() // arguments
