@@ -33,7 +33,7 @@ public class ReservationService {
     }
 
     public Reservation save(Reservation reservation){
-        jdbc.update("INSERT INTO reservation VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+        jdbc.update("INSERT INTO reservation VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 reservation.getReservationId(),
                 reservation.getUserId(),
                 reservation.getOriginAirportId(),
