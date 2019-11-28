@@ -34,6 +34,7 @@ public class AirlineAirportAPIController {
         return aas.update(aa);
     }
 
+    // Needs to accept a parameter to a specific tuple in order to delete
     @RequestMapping(value="/airline_airport", method=RequestMethod.DELETE)
     public void deleteAirlineAirport(@PathVariable("airline_id, airport_id") String airline_id, String airport_id) {
         aas.delete(airline_id, airport_id);
