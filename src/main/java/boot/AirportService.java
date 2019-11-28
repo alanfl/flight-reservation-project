@@ -14,14 +14,15 @@ public class AirportService{
     private static final Logger log = LoggerFactory.getLogger(AirportService.class);
       
     public Airport save(Airport airport) {
-      jdbc.update("INSERT INTO airport (airport_id, airport_name) VALUES (?, ?)", 
-        airport.getAirportId(), airport.getAirportName() // arguments
+      jdbc.update("INSERT INTO airport VALUES (?, ?)", 
+        airport.getAirportId(), 
+        airport.getAirportName() // arguments
       );
       return airport;
     }
     
     public Airport get(String airport_id) {
-      return (Airport) jdbc.queryForObject("SELECT airport_id, airport_name FROM airport WHERE airport_id=?", 
+      return (Airport) jdbc.queryForObject("SELECT * FROM airport WHERE airport_id=?", 
         new Object[] { airport_id }, // arguments as array
         (rs, rowNum) -> new Airport(
           rs.getString("airport_id"), 
@@ -30,10 +31,10 @@ public class AirportService{
       );
     }
     
-    // This needs to not be updating the ID, or updating ALL fields required
     public Airport update(Airport airport) {
-      jdbc.update("UPDATE airport SET airport_id=? WHERE airport_name=?", 
-        airport.getAirportId(), airport.getAirportName() // arguments
+      jdbc.update("UPDATE airport SET airport_id=?, airport_name=? WHERE airport_id=?", 
+        airport.getAirportId(), 
+        airport.getAirportName() // arguments
       );
       return airport;
     }
@@ -44,13 +45,21 @@ public class AirportService{
   
     public Iterable<Airport> searchAirports(String[] airport_ids) {
       if (airport_ids != null) {
-        return jdbc.query("SELECT airport_id FROM airport where airport_id IN ?", 
+        return jdbc.query("SELECT * FROM airport WHERE airport_id IN ?", 
           new Object[] { airport_ids }, // arguments as array
-          (rs, rowNum) -> new Airport(rs.getString("airport_id"))); // row mapper
+          (rs, rowNum) -> new Airport(
+              rs.getString("airport_id"),
+              rs.getString("airport_name")
+              )
+            ); // row mapper
       } else {
-        return jdbc.query("SELECT airport_id FROM airport",
+        return jdbc.query("SELECT * FROM airport",
           new Object[] {}, // arguments as array
-          (rs, rowNum) -> new Airport(rs.getString("airport_id"))); // row mapper
+          (rs, rowNum) -> new Airport(
+              rs.getString("airport_id"),
+              rs.getString("airport_name")
+              )
+            ); // row mapper
       }
     }
 }
