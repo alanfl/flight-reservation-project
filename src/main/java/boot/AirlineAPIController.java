@@ -13,14 +13,13 @@ public class AirlineAPIController {
   @Autowired
   AirlineService as;
 
-	@RequestMapping(value="/airline_id", method=RequestMethod.GET)
+	@RequestMapping(value="/airline", method=RequestMethod.GET)
     public Iterable<Airline> searchAirlines(
     	@RequestParam(value="airline_id", required=false) String[] airline_ids) {
-        // airline_id=val1&airline_id=val2 passed as an array
         return as.searchAirlines(airline_ids);
     }
 
-	@RequestMapping(value="/airline_id", method=RequestMethod.POST)
+	@RequestMapping(value="/airline", method=RequestMethod.POST)
     public Airline createAirline(@RequestBody Airline a) {
     	return as.save(a);
     }
@@ -35,5 +34,8 @@ public class AirlineAPIController {
         return as.update(a);
     }
 
-    // No delete???
+    	@RequestMapping(value="/airline", method=RequestMethod.DELETE)
+    public void deleteAirline(@PathVariable("airline_id") String airline_id) {
+        as.delete(airline_id);
+    }
 }
