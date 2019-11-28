@@ -34,7 +34,7 @@ public class AirportAPIController {
         return as.update(a);
     }
 
-    @RequestMapping(value="/airport", method=RequestMethod.DELETE)
+    	@RequestMapping(value="/airport", method=RequestMethod.DELETE)
     public void deleteAirport(@PathVariable("airport_id") String airport_id) {
         as.delete(airport_id);
     }
