@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS 'user';
+DROP TABLE IF EXISTS 'role';
+DROP TABLE IF EXISTS 'airline';
+DROP TABLE IF EXISTS 'aircraft';
+DROP TABLE IF EXISTS 'airport';
+DROP TABLE IF EXISTS 'airline_airport';
+DROP TABLE IF EXISTS 'flight';
+DROP TABLE IF EXISTS 'reservation';
+DROP TABLE IF EXISTS 'ticket';
+
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -27,6 +37,14 @@ CREATE TABLE IF NOT EXISTS `aircraft` (
   PRIMARY KEY (aircraft_id),
   FOREIGN KEY (airline_id) REFERENCES airline(airline_id)
 );
+
+CREATE TABLE IF NOT EXISTS `aircraft_capacity` (
+  `aircraft_id` varchar(32) NOT NULL,
+  `seat_class` varchar(32) NOT NULL,
+  `capacity` int NOT NULL,
+  PRIMARY KEY (aircraft_id, seat_class, capacity),
+  FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
+)
 
 CREATE TABLE IF NOT EXISTS `airport` (
   `airport_id` char(3) NOT NULL,
@@ -58,18 +76,6 @@ CREATE TABLE IF NOT EXISTS `flight` (
   FOREIGN KEY (departure_airport_id) REFERENCES airport(airport_id),
   FOREIGN KEY (arrival_airport_id) REFERENCES airport(airport_id),
   FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
-);
-
-CREATE TABLE IF NOT EXISTS `flight_waitinglist` (
-  `flight_id` int NOT NULL,
-  `airline_id` char(2) NOT NULL,
-  `departure_weekday` varchar(16) NOT NULL,
-  `departure_date` date NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `waitlist_date` date NOT NULL,
-  PRIMARY KEY (airline_id, flight_id, departure_weekday, username, waitlist_date),
-  FOREIGN KEY (airline_id, flight_id, departure_weekday) REFERENCES flight(airline_id, flight_id, departure_weekday),
-  FOREIGN KEY (username) REFERENCES user(username)
 );
 
 CREATE TABLE IF NOT EXISTS `reservation` (
