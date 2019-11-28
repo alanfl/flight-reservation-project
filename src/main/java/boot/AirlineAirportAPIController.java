@@ -30,7 +30,7 @@ public class AirlineAirportAPIController {
     }
 
 	@RequestMapping(value="/airline_airport/{airline_id, airport_id}", method=RequestMethod.PUT)
-    public AirlineAirport updateAirline(@RequestBody AirlineAirport aa) {
+    public AirlineAirport updateAirlineAirport(@RequestBody AirlineAirport aa) {
         return aas.update(aa);
     }
 
