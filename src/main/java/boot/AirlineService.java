@@ -14,14 +14,15 @@ public class AirlineService{
     private static final Logger log = LoggerFactory.getLogger(AirlineService.class);
       
     public Airline save(Airline airline) {
-      jdbc.update("INSERT INTO airline (airline_id, airline_name) VALUES (?, ?)", 
-        airline.getAirlineId(), airline.getAirlineName() // arguments
+      jdbc.update("INSERT INTO airline VALUES (?, ?)", 
+        airline.getAirlineId(), 
+        airline.getAirlineName() // arguments
       );
       return airline;
     }
     
     public Airline get(String airline_id) {
-      return (Airline) jdbc.queryForObject("SELECT airline_id, airline_name FROM airline WHERE airline_id=?", 
+      return (Airline) jdbc.queryForObject("SELECT * FROM airline WHERE airline_id=?", 
         new Object[] { airline_id }, // arguments as array
         (rs, rowNum) -> new Airline(
           rs.getString("airline_id"), 
@@ -30,10 +31,10 @@ public class AirlineService{
       );
     }
     
-    // Need to be updating ALL the required attributes
     public Airline update(Airline airline) {
-      jdbc.update("UPDATE airline SET airline_id=? WHERE airline_name=?", 
-        airline.getAirlineId(), airline.getAirlineName() // arguments
+      jdbc.update("UPDATE airline SET airline_id=?, airline_name=? WHERE airline_id=?", 
+        airline.getAirlineId(), 
+        airline.getAirlineName() // arguments
       );
       return airline;
     }
@@ -42,17 +43,23 @@ public class AirlineService{
       jdbc.update("DELETE FROM airline WHERE airline_id=?", airline_id);
     }
   
-    // This is searching for 'username' in airline table...
-    // Also, queries are not fetching all the required attributes
     public Iterable<Airline> searchAirlines(String[] airline_ids) {
       if (airline_ids != null) {
-        return jdbc.query("SELECT airline_id FROM airline where username IN ?", 
+        return jdbc.query("SELECT * FROM airline WHERE airline_id IN ?", 
           new Object[] { airline_ids }, // arguments as array
-          (rs, rowNum) -> new Airline(rs.getString("airline_id"))); // row mapper
+          (rs, rowNum) -> new Airline(
+              rs.getString("airline_id"),
+              rs.getString("airline_name")
+              )
+            ); // row mapper
       } else {
-        return jdbc.query("SELECT airline_id FROM airline",
+        return jdbc.query("SELECT * FROM airline",
           new Object[] {}, // arguments as array
-          (rs, rowNum) -> new Airline(rs.getString("airline_id"))); // row mapper
+          (rs, rowNum) -> new Airline(
+              rs.getString("airline_id"),
+              rs.getString("airline_name")
+              )
+            ); // row mapper
       }
     }
 }
