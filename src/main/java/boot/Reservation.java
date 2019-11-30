@@ -4,8 +4,8 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Reservation {
-    private int reservation_id;
-    private int user_id;
+    private String reservation_id;
+    private String username;
     private String origin_airport_id;
     private Date purchase_date;
     private Time purchase_time;
@@ -14,12 +14,12 @@ public class Reservation {
     private double total_fare;
     private double fee;
     private String special_meal;
-    private String class_name;
-    private String reservation_status;
+    private String seat_class;
+    private String booking_status;
 
-    public Reservation(int reservation_id, int user_id, String origin_airport_id, Date purchase_date, Time purchase_time, Date departure_date, Time departure_time, double total_fare,double fee, String special_meal,String class_name,String reservation_status) {
+    public Reservation(String reservation_id, String username, String origin_airport_id, Date purchase_date, Time purchase_time, Date departure_date, Time departure_time, double total_fare,double fee, String special_meal,String seat_class,String booking_status) {
         this.reservation_id = reservation_id;
-        this.user_id = user_id;
+        this.username = username;
         this.origin_airport_id = origin_airport_id;
         this.purchase_date = purchase_date;
         this.purchase_time = purchase_time;
@@ -28,16 +28,16 @@ public class Reservation {
         this.total_fare = total_fare;
         this.fee = fee;
         this.special_meal = special_meal;
-        this.class_name = class_name;
-        this.reservation_status = reservation_status;
+        this.seat_class = seat_class;
+        this.booking_status = booking_status;
     }
 
-    public int getReservationId() {
+    public String getReservationId() {
         return reservation_id;
     }
 
-    public int getUserId() {
-        return user_id;
+    public String getUsername() {
+        return username;
     }
 
     public String getOriginAirportId() { return origin_airport_id; }
@@ -56,7 +56,7 @@ public class Reservation {
 
     public String getSpecialMeal(){ return special_meal; }
 
-    public String getClassName(){ return class_name; }
+    public String getSeatClass(){ return seat_class; }
 
-    public String getReservationStatus(){ return reservation_status; }
+    public String getBookingStatus(){ return booking_status; }
 }

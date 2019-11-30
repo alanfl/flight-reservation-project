@@ -8,12 +8,12 @@ public class ReservationService {
     @Autowired
     private JdbcTemplate jdbc;
 
-    public Reservation get(int reservation_id){
+    public Reservation get(String reservation_id){
         return (Reservation) jdbc.queryForObject("SELECT * FROM reservation WHERE reservation_id=?",
                 new Object[] { reservation_id }, // arguments as array
                 (rs, rowNum) -> new Reservation(
-                        rs.getInt("reservation_id"),
-                        rs.getInt("user_id"),
+                        rs.getString("reservation_id"),
+                        rs.getString("username"),
                         rs.getString("origin_airport_id"),
                         rs.getDate("purchase_date"),
                         rs.getTime("purchase_time"),
@@ -22,20 +22,20 @@ public class ReservationService {
                         rs.getDouble("total_fare"),
                         rs.getDouble("fee"),
                         rs.getString("special_meal"),
-                        rs.getString("class"),
-                        rs.getString("reservation_status")
+                        rs.getString("seat_class"),
+                        rs.getString("booking_status")
                 ) // row mapper
         );
     }
 
-    public void delete(int reservation_id) {
+    public void delete(String reservation_id) {
         jdbc.update("DELETE FROM reservation WHERE reservation_id=?", reservation_id);
     }
 
     public Reservation save(Reservation reservation){
         jdbc.update("INSERT INTO reservation VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 reservation.getReservationId(),
-                reservation.getUserId(),
+                reservation.getUsername(),
                 reservation.getOriginAirportId(),
                 reservation.getPurchaseDate(),
                 reservation.getPurchaseTime(),
@@ -44,14 +44,14 @@ public class ReservationService {
                 reservation.getTotalFare(),
                 reservation.getFee(),
                 reservation.getSpecialMeal(),
-                reservation.getClassName(),
-                reservation.getReservationStatus());
+                reservation.getSeatClass(),
+                reservation.getBookingStatus());
         return reservation;
     }
 
     public Reservation update(Reservation reservation){
-        jdbc.update("UPDATE reservation SET user_id = ?, origin_airport_id = ?, purchase_date = ?, purchase_time = ?, departure_date = ?, departure_time = ?, total_fare = ?, fee = ?, special_meal = ?, class = ?, reservation_status = ? WHERE reservation_id = ?",
-                reservation.getUserId(),
+        jdbc.update("UPDATE reservation SET username = ?, origin_airport_id = ?, purchase_date = ?, purchase_time = ?, departure_date = ?, departure_time = ?, total_fare = ?, fee = ?, special_meal = ?, seat_class = ?, booking_status = ? WHERE reservation_id = ?",
+                reservation.getUsername(),
                 reservation.getOriginAirportId(),
                 reservation.getPurchaseDate(),
                 reservation.getPurchaseTime(),
@@ -60,20 +60,20 @@ public class ReservationService {
                 reservation.getTotalFare(),
                 reservation.getFee(),
                 reservation.getSpecialMeal(),
-                reservation.getClassName(),
-                reservation.getReservationStatus(),
+                reservation.getSeatClass(),
+                reservation.getBookingStatus(),
                 reservation.getReservationId()
         );
         return reservation;
     }
 
-    public Iterable<Reservation> searchReservations(int[] reservation_ids){
+    public Iterable<Reservation> searchReservations(String[] reservation_ids){
         if (reservation_ids != null) {
-            return jdbc.query("SELECT * FROM reservation where reservation_id IN ?",
+            return jdbc.query("SELECT * FROM reservation WHERE reservation_id IN ?",
                     new Object[] { reservation_ids }, // arguments as array
                     (rs, rowNum) -> new Reservation(
-                            rs.getInt("reservation_id"),
-                            rs.getInt("user_id"),
+                            rs.getString("reservation_id"),
+                            rs.getString("username"),
                             rs.getString("origin_airport_id"),
                             rs.getDate("purchase_date"),
                             rs.getTime("purchase_time"),
@@ -82,8 +82,8 @@ public class ReservationService {
                             rs.getDouble("total_fare"),
                             rs.getDouble("fee"),
                             rs.getString("special_meal"),
-                            rs.getString("class"),
-                            rs.getString("reservation_status")
+                            rs.getString("seat_class"),
+                            rs.getString("booking_status")
                     ) // row mapper
             );
         }
@@ -91,8 +91,8 @@ public class ReservationService {
             return jdbc.query("SELECT * FROM reservation",
                     new Object[]{},
                     (rs, rowNum) -> new Reservation(
-                            rs.getInt("reservation_id"),
-                            rs.getInt("user_id"),
+                            rs.getString("reservation_id"),
+                            rs.getString("username"),
                             rs.getString("origin_airport_id"),
                             rs.getDate("purchase_date"),
                             rs.getTime("purchase_time"),
@@ -101,8 +101,8 @@ public class ReservationService {
                             rs.getDouble("total_fare"),
                             rs.getDouble("fee"),
                             rs.getString("special_meal"),
-                            rs.getString("class"),
-                            rs.getString("reservation_status")
+                            rs.getString("seat_class"),
+                            rs.getString("booking_status")
                     ) // row mapper
             );
         }
