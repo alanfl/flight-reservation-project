@@ -12,10 +12,9 @@ public class AirlineAirportService{
     private JdbcTemplate jdbc;
     
     private static final Logger log = LoggerFactory.getLogger(AirlineAirportService.class);
-    
-    // May have to pass (airline_id, airport_id) after table name
+ 
     public AirlineAirport save(AirlineAirport airline_airport) {
-      jdbc.update("INSERT INTO airline_airport VALUES (?, ?)", 
+      jdbc.update("INSERT INTO airline_airport (airline_id, airport_id) VALUES (?, ?)", 
         airline_airport.getAirlineId(), 
         airline_airport.getAirportId() // arguments
       );
