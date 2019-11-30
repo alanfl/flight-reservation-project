@@ -13,9 +13,8 @@ public class AircraftService{
     
     private static final Logger log = LoggerFactory.getLogger(AircraftService.class);
     
-    // May have to pass (aicraft_id, aircraft_model, airline_id) as part of query after "aircraft"
     public Aircraft save(Aircraft aircraft) {
-      jdbc.update("INSERT INTO aircraft VALUES (?, ?, ?)", 
+      jdbc.update("INSERT INTO aircraft (aicraft_id, aircraft_model, airline_id) VALUES (?, ?, ?)", 
         aircraft.getAircraftId(), 
         aircraft.getAircraftModel(), 
         aircraft.getAirlineId() // arguments
