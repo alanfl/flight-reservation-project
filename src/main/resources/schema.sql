@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `aircraft_capacity` (
   `capacity` int NOT NULL,
   PRIMARY KEY (aircraft_id, seat_class),
   FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
-)
+);
 
 CREATE TABLE IF NOT EXISTS `airport` (
   `airport_id` char(3) NOT NULL,
