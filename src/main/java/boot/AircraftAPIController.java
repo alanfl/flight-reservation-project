@@ -34,9 +34,7 @@ public class AircraftAPIController {
         return as.update(a);
     }
 
-    // This method needs to accept a parameter for aircraft_id so we delete that specific
-    // aircraft.
-    @RequestMapping(value="/aircraft", method=RequestMethod.DELETE)
+    @RequestMapping(value="/aircraft/{aircraft_id}", method=RequestMethod.DELETE)
     public void deleteAircraft(@PathVariable("aircraft_id") String aircraft_id) {
         as.delete(aircraft_id);
     }
