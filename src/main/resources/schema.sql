@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `role`;
-DROP TABLE IF EXISTS `airline`;
-DROP TABLE IF EXISTS `aircraft`;
-DROP TABLE IF EXISTS `airport`;
-DROP TABLE IF EXISTS `aircraft_capacity`;
-DROP TABLE IF EXISTS `flight`;
-DROP TABLE IF EXISTS `reservation`;
 DROP TABLE IF EXISTS `ticket`;
+DROP TABLE IF EXISTS `reservation`;
+DROP TABLE IF EXISTS `flight`;
+DROP TABLE IF EXISTS `aircraft_capacity`;
+DROP TABLE IF EXISTS `aircraft`;
+DROP TABLE IF EXISTS `airline`;
+DROP TABLE IF EXISTS `airport`;
+DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) NOT NULL,

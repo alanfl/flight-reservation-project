@@ -13,11 +13,12 @@ public class AirlineAPIController {
     @Autowired
     AirlineService as;
 
-	@RequestMapping(value="/airline", method=RequestMethod.GET)
-    public Iterable<Airline> searchAirlines(
-    	@RequestParam(value="airline_id", required=false) String[] airline_ids) {
-        return as.searchAirlines(airline_ids);
-    }
+    // TODO audit, likely remove
+	// @RequestMapping(value="/airline", method=RequestMethod.GET)
+    // public Iterable<Airline> searchAirlines(
+    // 	@RequestParam(value="airline_id", required=false) String[] airline_ids) {
+    //     return as.searchAirlines(airline_ids);
+    // }
 
 	@RequestMapping(value="/airline", method=RequestMethod.POST)
     public Airline createAirline(@RequestBody Airline a) {
