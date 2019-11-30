@@ -29,7 +29,7 @@ public class ReservationAPIController {
     public Reservation updateReservation(@RequestBody Reservation r) { return res.update(r); }
 
     // Must accept a parameter in order to know what specific reservation_id needs to be deleted
-    @RequestMapping(value="/reservation", method=RequestMethod.DELETE)
+    @RequestMapping(value="/reservation/{reservation_id}", method=RequestMethod.DELETE)
     public void deleteReservation(@PathVariable("reservation_id") int reservation_id){
         res.delete(reservation_id);
     }
