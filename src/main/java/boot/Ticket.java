@@ -5,15 +5,25 @@ import java.util.Date;
 public class Ticket {
     private String ticket_id;
     private String reservation_id;
-    private int leg_id;
+    private String leg_id;
     private String airline_id;
-    private int flight_id;
-    private int departure_weekday;
-    private Date departure_date;
-    private double price;
+    private String flight_id;
+    private String departure_weekday;
+    private String departure_date;
+    private String price;
     private String waitlist_status;
 
-    public Ticket(String ticket_id, String reservation_id, int leg_id, String airline_id, int flight_id, int departure_weekday, Date departure_date, double price, String waitlist_status){
+    public Ticket(
+        String ticket_id, 
+        String reservation_id, 
+        String leg_id, 
+        String airline_id, 
+        String flight_id, 
+        String departure_weekday, 
+        String departure_date, 
+        String price, 
+        String waitlist_status
+        ){
         this.ticket_id = ticket_id;
         this.reservation_id = reservation_id;
         this.leg_id = leg_id;
@@ -25,23 +35,23 @@ public class Ticket {
         this.waitlist_status = waitlist_status;
     }
 
-    public String getTicketId(){ return ticket_id; }
+    public String getTicketId(){ return this.ticket_id; }
 
-    public String getReservationId(){ return reservation_id; }
+    public String getReservationId(){ return this.reservation_id; }
 
-    public int getLegId(){ return leg_id; }
+    public String getLegId(){ return this.leg_id; }
 
-    public String getAirlineId(){ return airline_id; }
+    public String getAirlineId(){ return this.airline_id; }
 
-    public int getFlightId(){ return flight_id; }
+    public String getFlightId(){ return this.flight_id; }
 
-    public int getDepartureWeekday(){ return departure_weekday; }
+    public String getDepartureWeekday(){ return this.departure_weekday; }
 
-    public Date getDepartureDate(){ return departure_date; }
+    public String getDepartureDate(){ return this.departure_date; }
 
-    public double getPrice(){ return price; }
+    public String getPrice(){ return this.price; }
 
-    public String getWaitlistStatus(){ return waitlist_status; }
+    public String getWaitlistStatus(){ return this.waitlist_status; }
 
 
 

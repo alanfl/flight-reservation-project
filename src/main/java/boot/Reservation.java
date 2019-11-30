@@ -1,23 +1,36 @@
 package boot;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class Reservation {
     private String reservation_id;
     private String username;
     private String origin_airport_id;
-    private Date purchase_date;
-    private Time purchase_time;
-    private Date departure_date;
-    private Time departure_time;
-    private double total_fare;
-    private double fee;
+    private String purchase_date;
+    private String purchase_time;
+    private String departure_date;
+    private String departure_time;
+    private String total_fare;
+    private String fee;
     private String special_meal;
     private String seat_class;
     private String booking_status;
 
-    public Reservation(String reservation_id, String username, String origin_airport_id, Date purchase_date, Time purchase_time, Date departure_date, Time departure_time, double total_fare,double fee, String special_meal,String seat_class,String booking_status) {
+    public Reservation() {
+    }
+
+    public Reservation(
+        String reservation_id, 
+        String username, 
+        String origin_airport_id, 
+        String purchase_date, 
+        String purchase_time, 
+        String departure_date, 
+        String departure_time, 
+        String total_fare,
+        String fee, 
+        String special_meal,
+        String seat_class,
+        String booking_status
+    ) {
         this.reservation_id = reservation_id;
         this.username = username;
         this.origin_airport_id = origin_airport_id;
@@ -32,31 +45,27 @@ public class Reservation {
         this.booking_status = booking_status;
     }
 
-    public String getReservationId() {
-        return reservation_id;
-    }
+    public String getReservationId() { return this.reservation_id; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return this.username; }
 
-    public String getOriginAirportId() { return origin_airport_id; }
+    public String getOriginAirportId() { return this.origin_airport_id; }
 
-    public Date getPurchaseDate(){ return purchase_date; }
+    public String getPurchaseDate(){ return this.purchase_date; }
 
-    public Time getPurchaseTime(){ return purchase_time; }
+    public String getPurchaseTime(){ return this.purchase_time; }
 
-    public Date getDepartureDate(){ return departure_date; }
+    public String getDepartureDate(){ return this.departure_date; }
 
-    public Time getDepartureTime(){ return departure_time; }
+    public String getDepartureTime(){ return this.departure_time; }
 
-    public double getTotalFare(){ return total_fare; }
+    public String getTotalFare(){ return this.total_fare; }
 
-    public double getFee(){ return fee; }
+    public String getFee(){ return this.fee; }
 
-    public String getSpecialMeal(){ return special_meal; }
+    public String getSpecialMeal(){ return this.special_meal; }
 
-    public String getSeatClass(){ return seat_class; }
+    public String getSeatClass(){ return this.seat_class; }
 
-    public String getBookingStatus(){ return booking_status; }
+    public String getBookingStatus(){ return this.booking_status; }
 }

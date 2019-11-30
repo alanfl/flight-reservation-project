@@ -14,12 +14,12 @@ public class TicketService {
                 (rs,rowNum) -> new Ticket(
                         rs.getString("ticket_id"),
                         rs.getString("reservation_id"),
-                        rs.getInt("leg_id"),
+                        rs.getString("leg_id"),
                         rs.getString("airline_id"),
-                        rs.getInt("flight_id"),
-                        rs.getInt("departure_weekday"),
-                        rs.getDate("departure_date"),
-                        rs.getDouble("price"),
+                        rs.getString("flight_id"),
+                        rs.getString("departure_weekday"),
+                        rs.getString("departure_date"),
+                        rs.getString("price"),
                         rs.getString("waitlist_status")
                 )
         );
@@ -64,12 +64,12 @@ public class TicketService {
                     (rs,rowNum) -> new Ticket(
                             rs.getString("ticket_id"),
                             rs.getString("reservation_id"),
-                            rs.getInt("leg_id"),
+                            rs.getString("leg_id"),
                             rs.getString("airline_id"),
-                            rs.getInt("flight_id"),
-                            rs.getInt("departure_weekday"),
-                            rs.getDate("departure_date"),
-                            rs.getDouble("price"),
+                            rs.getString("flight_id"),
+                            rs.getString("departure_weekday"),
+                            rs.getString("departure_date"),
+                            rs.getString("price"),
                             rs.getString("waitlist_status")
                     ));
         }
@@ -79,12 +79,12 @@ public class TicketService {
                     (rs,rowNum) -> new Ticket(
                         rs.getString("ticket_id"),
                         rs.getString("reservation_id"),
-                        rs.getInt("leg_id"),
+                        rs.getString("leg_id"),
                         rs.getString("airline_id"),
-                        rs.getInt("flight_id"),
-                        rs.getInt("departure_weekday"),
-                        rs.getDate("departure_date"),
-                        rs.getDouble("price"),
+                        rs.getString("flight_id"),
+                        rs.getString("departure_weekday"),
+                        rs.getString("departure_date"),
+                        rs.getString("price"),
                         rs.getString("waitlist_status")
                     ));
         }

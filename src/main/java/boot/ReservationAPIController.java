@@ -33,4 +33,8 @@ public class ReservationAPIController {
     public void deleteReservation(@PathVariable("reservation_id") String reservation_id){
         res.delete(reservation_id);
     }
+
+    // TODO update functionality to support customer-reservation role
+    // I.e. the application should be able to handle a customer-representative calling
+    // These API gateways and we should also take note of that
 }

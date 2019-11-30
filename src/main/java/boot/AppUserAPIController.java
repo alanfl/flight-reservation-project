@@ -37,4 +37,6 @@ public class AppUserAPIController {
     public AppUser updateAppUser(@RequestBody AppUser auser) {
         return aus.update(auser);
     }
+
+    // TODO implement role functionality, will have to refactor
 }

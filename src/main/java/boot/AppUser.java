@@ -1,8 +1,11 @@
 package boot;
 
+import java.util.ArrayList;
+
 public class AppUser {
     private String username;
     private String password;
+    private ArrayList<String> roles;
 
     public AppUser() {
     }
@@ -23,5 +26,13 @@ public class AppUser {
 
     public String getPassword() {
         return password;
+    }
+
+    public ArrayList<String> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(ArrayList<String> roles) {
+        this.roles = roles;
     }
 }

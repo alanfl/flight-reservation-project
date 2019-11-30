@@ -28,4 +28,6 @@ public class TicketAPIController {
 
     @RequestMapping(value="/ticket/{ticket_id}", method=RequestMethod.DELETE)
     public void deleteTicket(@PathVariable("ticket_id") String ticket_id){ ts.delete(ticket_id); }
+
+    // TODO implement customer-representatives making tickets on behalf of a customer
 }
