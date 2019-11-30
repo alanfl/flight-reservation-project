@@ -10,8 +10,8 @@ public class AirlineAPIController {
 
     // private static final Logger log = LoggerFactory.getLogger(AirlineAPIController.class);
 
-  @Autowired
-  AirlineService as;
+    @Autowired
+    AirlineService as;
 
 	@RequestMapping(value="/airline", method=RequestMethod.GET)
     public Iterable<Airline> searchAirlines(
@@ -34,8 +34,13 @@ public class AirlineAPIController {
         return as.update(a);
     }
 
-    	@RequestMapping(value="/airline", method=RequestMethod.DELETE)
+    @RequestMapping(value="/airline", method=RequestMethod.DELETE)
     public void deleteAirline(@PathVariable("airline_id") String airline_id) {
         as.delete(airline_id);
+    }
+
+    @RequestMapping(value="/airline", method=RequestMethod.GET)
+    public Iterable<Airline> getAirlines() {
+        return as.getAirlines();
     }
 }

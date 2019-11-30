@@ -4,12 +4,7 @@ public class Airline {
     private String airline_id;
     private String airline_name;
     
-    public Airline() {
-    }
-    
-    public Airline(String airline_id) {
-        this.airline_id = airline_id;
-    }
+    public Airline() {}
     
     public Airline(String airline_id, String airline_name) {
         this.airline_id = airline_id;
@@ -17,10 +12,10 @@ public class Airline {
     }
     
     public String getAirlineId() {
-        return airline_id;
+        return this.airline_id;
     }
     
     public String getAirlineName() {
-        return airline_name;
+        return this.airline_name;
     }
 }
