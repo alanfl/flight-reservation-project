@@ -1,0 +1,10 @@
+drop table if exists aircraft;
+drop table if exists airline;
+drop table if exists airline_airport;
+drop table if exists airport;
+drop table if exists flight;
+drop table if exists flight_waitinglist;
+drop table if exists reservation;
+drop table if exists role;
+drop table if exists ticket;
+drop table if exists user;

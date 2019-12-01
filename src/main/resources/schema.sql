@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `username` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (username, role),
-  FOREIGN KEY (username) REFERENCES user(username)
+  FOREIGN KEY (username) REFERENCES user(username) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS `airline` (
@@ -32,15 +32,15 @@ CREATE TABLE IF NOT EXISTS `aircraft` (
   `aircraft_model` varchar(32) NOT NULL,
   `airline_id` char(2) NOT NULL,
   PRIMARY KEY (aircraft_id),
-  FOREIGN KEY (airline_id) REFERENCES airline(airline_id)
+  FOREIGN KEY (airline_id) REFERENCES airline(airline_id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS `aircraft_capacity` (
   `aircraft_id` varchar(32) NOT NULL,
   `seat_class` varchar(32) NOT NULL,
-  `capacity` int NOT NULL,
+  `capacity` int NOT NULL ,
   PRIMARY KEY (aircraft_id, seat_class),
-  FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
+  FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS `airport` (
@@ -61,10 +61,10 @@ CREATE TABLE IF NOT EXISTS `flight` (
   `arrival_time` time,
   `price` DECIMAL(9, 2) NOT NULL,
   PRIMARY KEY (airline_id, flight_id, departure_weekday),
-  FOREIGN KEY (departure_airport_id) REFERENCES airport(airport_id),
-  FOREIGN KEY (arrival_airport_id) REFERENCES airport(airport_id),
-  FOREIGN KEY (airline_id) REFERENCES airline(airline_id),
-  FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id)
+  FOREIGN KEY (departure_airport_id) REFERENCES airport(airport_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (arrival_airport_id) REFERENCES airport(airport_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (airline_id) REFERENCES airline(airline_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (aircraft_id) REFERENCES aircraft(aircraft_id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS `reservation` (
@@ -81,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `seat_class` varchar(32) NOT NULL,
   `booking_status` varchar(32) NOT NULL,
   PRIMARY KEY (reservation_id),
-  FOREIGN KEY (origin_airport_id) REFERENCES airport(airport_id)
+  FOREIGN KEY (origin_airport_id) REFERENCES airport(airport_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (username) REFERENCES user(username) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS `ticket` (
@@ -95,6 +96,6 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `price` DECIMAL(11, 2) NOT NULL,
   `waitlist_status` varchar(32) NOT NULL,
   PRIMARY KEY (reservation_id, ticket_id, leg_id),
-  FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id),
-  FOREIGN KEY (airline_id, flight_id, departure_weekday) REFERENCES flight(airline_id, flight_id, departure_weekday)
+  FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (airline_id, flight_id, departure_weekday) REFERENCES flight(airline_id, flight_id, departure_weekday) ON UPDATE CASCADE ON DELETE RESTRICT
 );
