@@ -50,3 +50,14 @@ It is critical that you remain in the top-level directory when running this comm
 4. Your browser will warn you that the connection is not private. This is due to me being too lazy to sign the SSL certificate. You should proceed anyway because you're only connecting to your localhost.
 
 5. If everything works, you can terminate the application with Ctrl+C, otherwise, post a screenshot/text of the exception in Discord
+
+## How to best work on this application
+
+### Cloning, Building, and Running Locally
+#### Use a local mysql instance
+
+It is preferable to install (if not present) and use a local mysql instance as opposed to the production database on Amazon RDS. The reason for this is that if multiple people are developing, the automated .sql scripts could potentially conflict. The best way to do this is to change the mysql credentials specified in the application.properties file to match whatever credentials you have set on your local machine.
+
+#### Use mvn spring-boot:run instead of java -jar target/boot.jar
+
+Using this command will allow the system to automatically "refresh" certain files whenever you make updates. This is especially helpful when seeing live changes to the front-end, or when debugging API gateways. The main downside to this is that it may not be fool-proof, and some changes may still require a full rebuild of the application.
