@@ -15,13 +15,6 @@ public class AirportAPIController {
     @Autowired
     AirportService as;
 
-    // TODO Likely not necessary, re-audit and test
-	// @RequestMapping(value="/airport", method=RequestMethod.GET)
-    // public Iterable<Airport> searchAirports(
-    // 	@RequestParam(value="airport_id", required=false) String[] airport_ids) {
-    //     return as.searchAirports(airport_ids);
-    // }
-
     @RequestMapping(value="/airport", method=RequestMethod.GET)
     public Iterable<Airport> get(Principal principal) {
         return as.get();
@@ -31,12 +24,6 @@ public class AirportAPIController {
     public Airport createAirport(@RequestBody Airport a) {
     	return as.upsert(a);
     }
-
-    // TODO re-audit later on to see if this is necessary
-	// @RequestMapping(value="/airport/{airport_id}", method=RequestMethod.GET)
-    // public Airport getAirport(@PathVariable("airport_id") String airport_id) {
-    //     return as.getAirportById(airport_id);
-    // }
 
 	@RequestMapping(value="/airport", method=RequestMethod.PUT)
     public Airport updateAirport(@RequestBody Airport a) {
