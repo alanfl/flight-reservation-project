@@ -82,8 +82,11 @@ public class Application extends SpringBootServletInitializer {
 						.antMatchers("/**").permitAll();
 			} else {
 				http.authorizeRequests()
-						.antMatchers("/", "/index.html", "/register.html", "/user", "/adduser", "/airport", "/aircraft", "/airline", "/flight", "/search", "/css/**", "/js/**", "/img/**").permitAll()
-						.antMatchers("/user/**").hasRole("admin")
+						.antMatchers("/", "/index.html", "/register.html", "/user", "/adduser", "/airport", "/aircraft", "/airline", "/flight", "/search", "/css/**", "/js/**").permitAll()
+						.antMatchers("/customer_rep.html").hasRole("customer_representative")
+						.antMatchers("/cr/**").hasRole("customer_representative")
+						.antMatchers("/admin.html").hasRole("admin")
+						.antMatchers("/admin/**").hasRole("admin")
 						.anyRequest().authenticated();
 			}
 
