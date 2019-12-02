@@ -82,7 +82,7 @@ public class Application extends SpringBootServletInitializer {
 						.antMatchers("/**").permitAll();
 			} else {
 				http.authorizeRequests()
-						.antMatchers("/", "/register.html", "/adduser", "/img/**", "/js/**", "/css/**").permitAll()
+						.antMatchers("/", "/index.html", "/register.html", "/user", "/adduser", "/airport", "/aircraft", "/airline", "/flight", "/search", "/css/**", "/js/**", "/img/**").permitAll()
 						.antMatchers("/user/**").hasRole("admin")
 						.anyRequest().authenticated();
 			}

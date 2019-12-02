@@ -5,69 +5,14 @@
 <head>
     <title>Flight Finder - Login</title>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:300");
-        @import url("https://fonts.googleapis.com/css?family=Rock+Salt");
-
-        * {
-            margin: 0;
-            padding: 0;
-            text-decoration: none;
-            box-sizing: border-box;
-            font-family: 'Source Code Pro';
-        }
-
-        .login {
-            padding: 24px;
-        }
-
-        .login * {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            margin: 16px 0;
-        }
-
-        .login input[type=submit] {
-            display: block;
-            padding: 8px 16px;
-            width: auto;
-            margin: 32px auto;
-            border-radius: 3px;
-        }
-
-        .header {
-            display: block;
-            width: 100%;
-            padding: 16px;
-        }
-
-        .header .nav {
-            float: right;
-            margin-top: 24px;
-            margin-right: 24px;
-            font-size: 80%;
-        }
-
-        .footer {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            position: fixed;
-            bottom: 0;
-            font-size: 70%;
-            text-align: center;
-        }
-
-        .error {
-            color: red;
-        }
+        @import url("/css/login.css");
     </style>
 </head>
 
 <body translate="no">
     <div id="app">
         <div class="header">
-            <a class="logo" href="/"><img th:src="@{/img/logo.png}" alt="imagenotfound" /></a>
+            <a class="logo" href="/">Flight Finder</a>
             <a class="nav" href="/register.html">Register</a>
         </div>
         <form class="login" th:action="@{/login}" method="post">

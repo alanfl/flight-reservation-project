@@ -15,16 +15,11 @@ public class WebController {
 
     private static final Logger log = LoggerFactory.getLogger(WebController.class);
 
-    @RequestMapping("/")
-    public String greeting(
-        @RequestParam(value="name", required=false, defaultValue="World") String name,
-        Model model) 
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String home(Model model)
     {
-    	// put result in model
-        // model.addAttribute("name", name);
-        
-        // return view name pointing to templates/hello.html
-        return "home";
+        // return view name pointing to static page index.html
+        return "redirect:index.html";
     }
 
     @RequestMapping(value="/adduser", method = RequestMethod.POST)

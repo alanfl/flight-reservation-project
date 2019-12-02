@@ -5,61 +5,17 @@
     <meta charset="UTF-8">
     <title>Flight Finder - Register</title>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:300&display=swap");
-        @import url("https://fonts.googleapis.com/css?family=Rock+Salt&display=swap");
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Source Code Pro';
-            text-decoration: none;
-        }
-
-        .login {
-            padding: 24px;
-        }
-
-        .login * {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            margin: 16px 0;
-        }
-
-        .login input[type=submit] {
-            display: block;
-            width: auto;
-            padding: 8px 16px;
-            margin: 32px auto;
-            border-radius: 3px;
-        }
-
-        .header {
-            display: block;
-            width: 100%;
-            padding: 16px;
-        }
-
-        .footer {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            position: fixed;
-            bottom: 0;
-            font-size: 70%;
-            text-align: center;
-        }
+        @import url("/css/login.css");
     </style>
 </head>
 
 <body translate="no">
     <div id="app">
         <div class="header">
-            <a class="logo" href="/"><img src="/img/logo.png" alt="imagenotfound" /></a>
+            <a class="logo" href="/">flight finder</a>
         </div>
         <form class="login" action="/adduser" method="post">
-            <p>Register:</p>
+            <p>Please fill up the form:</p>
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
             <input type="password" name="password-confirm" placeholder="Password confirmation">
