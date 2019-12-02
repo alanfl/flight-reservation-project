@@ -10,32 +10,39 @@ public class AircraftAPIController {
 
     // private static final Logger log = LoggerFactory.getLogger(AircraftAPIController.class);
 
-  @Autowired
-  AircraftService as;
+    @Autowired
+    AircraftService as;
+
+    // Calls on capacity service to determine aircraft capacities
+    @Autowired
+    CapacityService cs;
 
 	@RequestMapping(value="/aircraft", method=RequestMethod.GET)
-    public Iterable<Aircraft> searchAircrafts(
-    	@RequestParam(value="aircraft_id", required=false) String[] aircraft_ids) {
-        return as.searchAircrafts(aircraft_ids);
+    public Iterable<Aircraft> getAircrafts() {
+        Iterable<Aircraft> aircrafts = as.getAircrafts();
+        for(Aircraft a:aircrafts) {
+            for(Capacity c: cs.getCapacities(a)) {
+                if (c.getSeatClass().equals("economy")) a.setEconomyClassSeats(c.getCapacity());
+                if (c.getSeatClass().equals("business")) a.setBusinessClassSeats(c.getCapacity());
+                if (c.getSeatClass().equals("first")) a.setFirstClassSeats(c.getCapacity());        
+            }
+        }
+        return aircrafts;
     }
 
-	@RequestMapping(value="/aircraft", method=RequestMethod.POST)
-    public Aircraft createAircraft(@RequestBody Aircraft a) {
-    	return as.save(a);
+    // Role-based create and delete methods
+    // Role gating is done via Application.java
+    @RequestMapping(value="/cr/aircraft", method=RequestMethod.POST)
+    public Aircraft create(@RequestBody Aircraft aircraft) {
+        cs.upsert(new Capacity(aircraft.getAircraftId(), "economy", aircraft.getEconomyClassSeats()));
+        cs.upsert(new Capacity(aircraft.getAircraftId(), "business", aircraft.getBusinessClassSeats()));
+        cs.upsert(new Capacity(aircraft.getAircraftId(), "first", aircraft.getFirstClassSeats()));
+        return as.upsert(aircraft);
     }
 
-	@RequestMapping(value="/aircraft/{aircraft_id}", method=RequestMethod.GET)
-    public Aircraft getAircraft(@PathVariable("aircraft_id") String aircraft_id) {
-        return as.get(aircraft_id);
-    }
-
-	@RequestMapping(value="/aircraft/{aircraft_id}", method=RequestMethod.PUT)
-    public Aircraft updateAircraft(@RequestBody Aircraft a) {
-        return as.update(a);
-    }
-
-    @RequestMapping(value="/aircraft/{aircraft_id}", method=RequestMethod.DELETE)
-    public void deleteAircraft(@PathVariable("aircraft_id") String aircraft_id) {
-        as.delete(aircraft_id);
+    @RequestMapping(value="/cr/aircraft", method=RequestMethod.DELETE)
+    public Aircraft delete(@RequestBody Aircraft aircraft) {
+        as.delete(aircraft);
+        return new Aircraft();
     }
 }

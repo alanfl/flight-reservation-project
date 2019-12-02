@@ -4,6 +4,9 @@ public class Aircraft {
     private String aircraft_id;
     private String aircraft_model;
     private String airline_id;
+    private int economy_class_seats;
+    private int business_class_seats;
+    private int first_class_seats;
     
     public Aircraft() {
     }
@@ -19,14 +22,38 @@ public class Aircraft {
     }
     
     public String getAircraftId() {
-        return aircraft_id;
+        return this.aircraft_id;
     }
     
     public String getAircraftModel() {
-        return aircraft_model;
+        return this.aircraft_model;
     }
     
     public String getAirlineId() {
-        return airline_id;
+        return this.airline_id;
+    }
+
+    public int getEconomyClassSeats() {
+        return this.economy_class_seats;
+    }
+
+    public int getBusinessClassSeats() {
+        return this.business_class_seats;
+    }
+
+    public int getFirstClassSeats() {
+        return this.first_class_seats;
+    }
+
+    public void setEconomyClassSeats(int seats) {
+        this.economy_class_seats = seats;
+    }
+
+    public void setBusinessClassSeats(int seats) {
+        this.business_class_seats = seats;
+    }
+
+    public void setFirstClassSeats(int seats) {
+        this.first_class_seats = seats;
     }
 }

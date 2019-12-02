@@ -13,59 +13,36 @@ public class AircraftService{
     
     private static final Logger log = LoggerFactory.getLogger(AircraftService.class);
     
+    // Basic save method
     public Aircraft save(Aircraft aircraft) {
-      jdbc.update("INSERT INTO aircraft (aicraft_id, aircraft_model, airline_id) VALUES (?, ?, ?)", 
-        aircraft.getAircraftId(), 
-        aircraft.getAircraftModel(), 
-        aircraft.getAirlineId() // arguments
-      );
-      return aircraft;
+        jdbc.update("INSERT INTO aircraft (aicraft_id, aircraft_model, airline_id) VALUES (?, ?, ?)", 
+            aircraft.getAircraftId(), 
+            aircraft.getAircraftModel(), 
+            aircraft.getAirlineId() // arguments
+        );
+        return aircraft;
     }
     
-    public Aircraft get(String aircraft_id) {
-      return (Aircraft) jdbc.queryForObject("SELECT * FROM aircraft WHERE aircraft_id=?", 
-        new Object[] { aircraft_id }, // arguments as array
-        (rs, rowNum) -> new Aircraft(
-          rs.getString("aircraft_id"), 
-          rs.getString("aircraft_model"),
-          rs.getString("airline_id")
-        ) // row mapper 
-      );
+    // Combine update and save methods for simplifcation
+    public Aircraft upsert(Aircraft aircraft) {
+        jdbc.update("INSERT INTO aircraft (aircraft_id, airline_id, aircraft_model) "
+                  + "VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE "
+                  + "aircraft_id=?, aircraft_model=?, airline_id=?", 
+            aircraft.getAircraftId(), aircraft.getAirlineId(), aircraft.getAircraftModel(), // arguments
+            aircraft.getAircraftId(), aircraft.getAirlineId(), aircraft.getAircraftModel()
+        );
+        return aircraft;
     }
     
-    public Aircraft update(Aircraft aircraft) {
-      jdbc.update("UPDATE aircraft SET aircraft_id=?, aircraft_model=?, airline_id=? WHERE aircraft_id=?", 
-        aircraft.getAircraftId(), 
-        aircraft.getAircraftModel(), 
-        aircraft.getAirlineId() // arguments
-      );
-      return aircraft;
+    // Basic delete method
+    public void delete(Aircraft aircraft) {
+      jdbc.update("DELETE FROM aircraft WHERE aircraft_id=?", aircraft.getAircraftId());
     }
-    
-    public void delete(String aircraft_id) {
-      jdbc.update("DELETE FROM aircraft WHERE aircraft_id=?", aircraft_id);
-    }
-  
-    public Iterable<Aircraft> searchAircrafts(String[] aircraft_ids) {
-      if (aircraft_ids != null) {
-        return jdbc.query("SELECT * FROM aircraft WHERE aircraft_id IN ?", 
-          new Object[] { aircraft_ids }, // arguments as array
-          (rs, rowNum) -> new Aircraft(
-                rs.getString("aircraft_id"),
-                rs.getString("aircraft_model"),
-                rs.getString("airline_id")
-                )
-              ); // row mapper
-      } 
-      else {
-        return jdbc.query("SELECT * FROM aircraft",
-          new Object[] {}, // arguments as array
-          (rs, rowNum) -> new Aircraft(
-                rs.getString("aircraft_id"),
-                rs.getString("aircraft_model"),
-                rs.getString("airline_id")
-                )
-              ); // row mapper
-      }
+
+    // Retrieve all aircraft records from db
+    public Iterable<Aircraft> getAircrafts() {
+        return jdbc.query("SELECT aircraft_id, airline_id, aircraft_model FROM aircraft",
+            new Object[] { }, // pass in args as an array
+            (rs, rowNum) -> new Aircraft(rs.getString("aircraft_id"), rs.getString("airline_id"), rs.getString("aircraft_model")));
     }
 }
