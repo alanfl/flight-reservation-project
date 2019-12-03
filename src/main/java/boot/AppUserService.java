@@ -36,9 +36,22 @@ public class AppUserService {
     );
     return user;
   }
+
+  public AppUser upsert(AppUser u) {
+    if (u.getPassword() != null) {
+      jdbc.update("INSERT INTO user(username, password) "
+                + "VALUES(?, ?) ON DUPLICATE KEY UPDATE "
+                + "username=?, password=?",
+        u.getUsername(), u.getPassword(),
+        u.getUsername(), u.getPassword()
+      );
+    }
+
+    return u;
+  }
   
-  public void delete(String username) {
-    jdbc.update("DELETE FROM user WHERE username=?", username);
+  public void delete(AppUser user) {
+    jdbc.update("DELETE FROM user WHERE username=?", user.getUsername());
   }
   
   public Iterable<AppUser> searchAppUsers(String[] names) {
@@ -47,7 +60,7 @@ public class AppUserService {
         new Object[] { names }, // arguments as array
         (rs, rowNum) -> new AppUser(rs.getString("username"))); // row mapper
     } else {
-      return jdbc.query("SELECT username FROM user",
+      return jdbc.query("SELECT DISTINCT username, password FROM user WHERE NOT EXISTS (SELECT * FROM role WHERE user.username = role.username and role.role='admin')",
         new Object[] {}, // arguments as array
         (rs, rowNum) -> new AppUser(rs.getString("username"))); // row mapper
     }

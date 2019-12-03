@@ -1,5 +1,8 @@
 package boot;
 
+import java.util.*;
+import java.security.Principal;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 
@@ -13,11 +16,25 @@ public class AppUserAPIController {
     @Autowired
     AppUserService aus;
 
-	@RequestMapping(value="/user", method=RequestMethod.GET)
-    public Iterable<AppUser> searchAppUsers(
-    	@RequestParam(value="name", required=false) String[] names) {
-        // name=val1&name=val2 passed as an array
-        return aus.searchAppUsers(names);
+    @Autowired
+    RoleService rs;
+
+    @RequestMapping(value="/user", method=RequestMethod.GET)
+    public AppUser getAppUser(Principal principal) {
+        AppUser user = new AppUser();
+        if (principal != null) {
+            String username = principal.getName();
+            user = new AppUser(username, null);
+            ArrayList<String> roles = new ArrayList<String>(); // This is important, some users may have multiple roles
+            
+            for(Role r: rs.getRoles(username)) {
+                roles.add(r.getRole());
+            }
+
+            user.setRoles(roles);
+        }
+
+        return user;
     }
 
     // Having AppUser as input will make Spring do the following
@@ -28,15 +45,45 @@ public class AppUserAPIController {
     	return aus.save(auser);
     }
 
-	@RequestMapping(value="/user/{username}", method=RequestMethod.GET)
+    @RequestMapping(value="/admin/user/{username}", method=RequestMethod.GET)
     public AppUser getAppUser(@PathVariable("username") String username) {
         return aus.get(username);
     }
 
-	@RequestMapping(value="/user/{id}", method=RequestMethod.PUT)
-    public AppUser updateAppUser(@RequestBody AppUser auser) {
+	@RequestMapping(value="/admin/user", method=RequestMethod.POST)
+    public AppUser addAppUserByAdmin(@RequestBody AppUser auser) {
+        aus.upsert(auser);
+        rs.delete(auser.getUsername());
+        for(String s: auser.getRoles()) {
+            rs.save(new Role(auser.getUsername(), s));
+        }
+        return auser;
+    }
+
+    @RequestMapping(value="/admin/user", method=RequestMethod.PUT)
+    public AppUser updateAppUserByAmin(@RequestBody AppUser auser) {
         return aus.update(auser);
     }
 
-    // TODO implement role functionality, will have to refactor
+    @RequestMapping(value="/admin/user", method=RequestMethod.DELETE)
+    public AppUser deleteAppUserByAdmin(@RequestBody AppUser auser) {
+        aus.delete(auser);
+        return new AppUser();
+    }
+
+    // This should be role gated, only admins can have access to 
+	@RequestMapping(value="/admin/user", method=RequestMethod.GET)
+    public Iterable<AppUser> searchAppUsers(
+    	@RequestParam(value="name", required=false) String[] names) {
+        // name=val1&name=val2 passed as an array
+        Iterable<AppUser> users = aus.searchAppUsers(names);
+        for(AppUser u:users) {
+            ArrayList<String> roles = new ArrayList<String>();
+            for(Role r: rs.getRoles(u.getUsername())) {
+                roles.add(r.getRole());
+            }
+            u.setRoles(roles);
+        }
+        return users;
+    }
 }

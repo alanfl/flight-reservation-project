@@ -12,36 +12,19 @@ public class AirlineAPIController {
 
     @Autowired
     AirlineService as;
-
-    // TODO audit, likely remove
-	// @RequestMapping(value="/airline", method=RequestMethod.GET)
-    // public Iterable<Airline> searchAirlines(
-    // 	@RequestParam(value="airline_id", required=false) String[] airline_ids) {
-    //     return as.searchAirlines(airline_ids);
-    // }
-
-	@RequestMapping(value="/airline", method=RequestMethod.POST)
-    public Airline createAirline(@RequestBody Airline a) {
-    	return as.save(a);
-    }
-
-	@RequestMapping(value="/airline/{airline_id}", method=RequestMethod.GET)
-    public Airline getAirline(@PathVariable("airline_id") String airline_id) {
-        return as.get(airline_id);
-    }
-
-	@RequestMapping(value="/airline/{airline_id}", method=RequestMethod.PUT)
-    public Airline updateAirline(@RequestBody Airline a) {
-        return as.update(a);
-    }
-
-    @RequestMapping(value="/airline", method=RequestMethod.DELETE)
-    public void deleteAirline(@PathVariable("airline_id") String airline_id) {
-        as.delete(airline_id);
-    }
-
-    @RequestMapping(value="/airline", method=RequestMethod.GET)
+  
+      @RequestMapping(value="/airline", method=RequestMethod.GET)
     public Iterable<Airline> getAirlines() {
-        return as.getAirlines();
+      return as.getAirlines();
     }
-}
+  
+      @RequestMapping(value="/cr/airline", method=RequestMethod.POST)
+      public Airline create(@RequestBody Airline airline) {
+          return as.upsert(airline);
+      }
+    @RequestMapping(value="/cr/airline", method=RequestMethod.DELETE)
+    public Airline delete(@RequestBody Airline airline) {
+        as.delete(airline);
+        return new Airline();
+    }
+  }

@@ -1,5 +1,8 @@
 package boot;
 
+import java.security.Principal;
+import java.util.*;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 
@@ -7,27 +10,89 @@ import org.springframework.beans.factory.annotation.*;
 @RestController
 public class TicketAPIController {
     @Autowired
+    ReservationService rs;
+    @Autowired
     TicketService ts;
-
-    @RequestMapping(value="/ticket", method=RequestMethod.GET)
-    public Iterable<Ticket> searchTickets(
-            @RequestParam(value="ticket_id", required=false) String[] ticket_ids){
-        return ts.searchTickets(ticket_ids);
-    }
-
+    @Autowired
+    RoleService roleService;
+    
     @RequestMapping(value="/ticket", method=RequestMethod.POST)
-    public Ticket createTicket(@RequestBody Ticket t){ return ts.save(t); }
+    public Ticket createTicket(
+        Principal principal,
+        @RequestBody Ticket ticket
+    ) {
+        String username = principal.getName();
+        Reservation reservation = rs.getById(ticket.getReservationId());
+        if (reservation != null && reservation.username.equals(username)) {
+            ts.save(ticket);
+        }
+        return ticket;
+  }
 
-    @RequestMapping(value="/ticket/{ticket_id}", method=RequestMethod.GET)
-    public Ticket getTicket(@PathVariable("ticket_id") String ticket_id){
-        return ts.get(ticket_id);
+    @RequestMapping(value="/tickets/{id}", method=RequestMethod.GET)
+    public Iterable<Ticket> getTickets(
+        Principal principal,
+        @PathVariable("id") String id
+    ) {
+        Reservation reservation = rs.getById(id);
+        if (reservation != null && reservation.username.equals(principal.getName())) {
+            return ts.getByReservationId(id);
+        }
+        return new ArrayList<Ticket>();
     }
 
-    @RequestMapping(value="/ticket/{ticket_id}", method=RequestMethod.PUT)
-    public Ticket updateTicket(@RequestBody Ticket t) { return ts.update(t); }
+    @RequestMapping(value="/tickets/{id}", method=RequestMethod.DELETE)
+    public void deleteTickets(
+        Principal principal,
+        @PathVariable("id") String id
+    ) {
+        Reservation reservation = rs.getById(id);
+        if (reservation != null && reservation.username.equals(principal.getName())) {
+            ts.deleteByReservationId(id);
+        }
+    }
 
-    @RequestMapping(value="/ticket/{ticket_id}", method=RequestMethod.DELETE)
-    public void deleteTicket(@PathVariable("ticket_id") String ticket_id){ ts.delete(ticket_id); }
+    @RequestMapping(value="/cr/tickets/{id}", method=RequestMethod.GET)
+    public Iterable<Ticket> getTicketsByCR(
+        Principal principal,
+        @PathVariable("id") String id
+    ) {
+        Reservation reservation = rs.getById(id);
+        if (reservation != null) {
+            return ts.getByReservationId(id);
+        }
+        return new ArrayList<Ticket>();
+    }
 
-    // TODO implement customer-representatives making tickets on behalf of a customer
+	@RequestMapping(value="/admin/tickets/{id}", method=RequestMethod.GET)
+    public Iterable<Ticket> getTicketsByAdmin(
+        Principal principal,
+        @PathVariable("id") String id
+    ) {
+        Reservation reservation = rs.getById(id);
+        if (reservation != null) {
+            return ts.getByReservationId(id);
+        }
+        return new ArrayList<Ticket>();
+    }
+
+    @RequestMapping(value="/cr/tickets/{id}", method=RequestMethod.DELETE)
+    public void deleteTicketsByCR(
+        Principal principal,
+        @PathVariable("id") String id
+    ) {
+        Reservation reservation = rs.getById(id);
+        if (reservation != null) {
+            ts.deleteByReservationId(id);
+        }
+    }
+
+    @RequestMapping(value="/cr/ticket", method=RequestMethod.POST)
+    public Ticket createTicketByCR(
+        Principal principal,
+        @RequestBody Ticket ticket
+    ) {
+        ts.save(ticket);
+        return ticket;
+    }
 }

@@ -1,5 +1,7 @@
 package boot;
 
+import java.security.Principal;
+
 import java.util.ArrayList;
 import org.slf4j.*;
 
@@ -24,6 +26,10 @@ public class RoleService {
   public void delete(String username, String role) {
     jdbc.update("DELETE FROM user WHERE username=? AND role=?", username, role);
   }
+
+  public void delete(String username) {
+    jdbc.update("DELETE FROM role WHERE username=?", username);
+  }
   
   public Iterable<Role> getRoles(String name) {
     if (name != null) {
@@ -33,5 +39,17 @@ public class RoleService {
     } else {
       return new ArrayList<Role>();
     }
+  }
+
+  public boolean isCustomerRep(Principal p) {
+    String username = p.getName();
+    Iterable<Role> roles = getRoles(username);
+    boolean isCustomerRep = false;
+    for(Role r:roles) {
+      if (r.getRole().equals("customer_representative")) {
+        isCustomerRep = true;
+      }
+    }
+    return isCustomerRep;
   }
 }

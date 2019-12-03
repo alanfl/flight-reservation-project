@@ -45,7 +45,7 @@ public class CapacityService {
         if (aircraft != null) {
             return jdbc.query("SELECT aircraft_id, seat_class, capacity FROM aircraft_capacity where aircraft_id=?", 
                 new Object[] { aircraft.getAircraftId() }, // arguments as array
-                    (rs, rowNum) -> new Capacity(rs.getString("aircraft_id"), rs.getString("seat_class"), rs.getInt("capacity"))); // row mapper
+                (rs, rowNum) -> new Capacity(rs.getString("aircraft_id"), rs.getString("seat_class"), rs.getInt("capacity"))); // row mapper
         } else {
             return new ArrayList<Capacity>();
         }

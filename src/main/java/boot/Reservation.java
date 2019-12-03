@@ -1,18 +1,18 @@
 package boot;
 
 public class Reservation {
-    private String reservation_id;
-    private String username;
-    private String origin_airport_id;
-    private String purchase_date;
-    private String purchase_time;
-    private String departure_date;
-    private String departure_time;
-    private String total_fare;
-    private String fee;
-    private String special_meal;
-    private String seat_class;
-    private String booking_status;
+    String reservation_id;
+    String username;
+    String origin_airport_id;
+    String purchase_date;
+    String purchase_time;
+    String departure_date;
+    String departure_time;
+    String total_fare;
+    String fee;
+    String special_meal;
+    String seat_class;
+    String booking_status;
 
     public Reservation() {
     }

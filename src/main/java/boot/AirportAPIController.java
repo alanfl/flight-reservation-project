@@ -20,18 +20,18 @@ public class AirportAPIController {
         return as.get();
     }
 
-	@RequestMapping(value="/airport", method=RequestMethod.POST)
-    public Airport createAirport(@RequestBody Airport a) {
+	@RequestMapping(value="/cr/airport", method=RequestMethod.POST)
+    public Airport create(@RequestBody Airport a) {
     	return as.upsert(a);
     }
 
-	@RequestMapping(value="/airport", method=RequestMethod.PUT)
-    public Airport updateAirport(@RequestBody Airport a) {
+	@RequestMapping(value="/cr/airport", method=RequestMethod.PUT)
+    public Airport update(@RequestBody Airport a) {
         return as.upsert(a);
     }
 
-    @RequestMapping(value="/airport", method=RequestMethod.DELETE)
-    public Airport deleteAirport(@RequestBody Airport a) {
+    @RequestMapping(value="/cr/airport", method=RequestMethod.DELETE)
+    public Airport delete(@RequestBody Airport a) {
         as.delete(a);
         return new Airport();
     }
