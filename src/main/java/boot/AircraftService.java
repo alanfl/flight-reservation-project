@@ -37,6 +37,7 @@ public class AircraftService{
     // Basic delete method
     public void delete(Aircraft aircraft) {
       jdbc.update("DELETE FROM aircraft WHERE aircraft_id=?", aircraft.getAircraftId());
+      jdbc.update("DELETE FROM aircraft_capacity WHERE aircraft_id=?", aircraft.getAircraftId());
     }
 
     // Retrieve all aircraft records from db

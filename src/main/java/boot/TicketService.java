@@ -97,6 +97,15 @@ public class TicketService {
     
         // since a ticket has been removed, there should be an open spot if this was confirmed
         confirm(ticket);
+
+        // update the status of other reservation since it might change from waiting to confirmed
+        jdbc.update("UPDATE reservation r SET r.booking_status='confirmed' WHERE r.booking_status='waitlist' AND NOT EXISTS (SELECT * FROM ticket t WHERE t.reservation_id=r.reservation_id AND t.airline_id=? AND t.flight_id=? AND t.departure_date=? AND t.booking_status='waitlist')",
+            new Object[] {
+                ticket.getAirlineId(), 
+                ticket.getFlightId(), 
+                ticket.getDepartureDate() 
+            }
+        );
     }
 
     public void deleteByReservationId(String id) {

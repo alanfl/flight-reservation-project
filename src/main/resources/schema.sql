@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `aircraft_capacity` (
 CREATE TABLE IF NOT EXISTS `airport` (
   `airport_id` char(3) NOT NULL,
   `airport_name` varchar(255) NOT NULL,
+  `airport_tags` varchar(512) NOT NULL,
   PRIMARY KEY (airport_id)
 );
 

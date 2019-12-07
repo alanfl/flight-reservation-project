@@ -16,6 +16,7 @@ var appVM = new Vue({
     choices: {
       "airlines": ["UA", "DL"]
     },
+    // Default filters for home page
     filters: {
       "stops": "100",
       "airlines": ["UA", "DL"],
@@ -23,21 +24,26 @@ var appVM = new Vue({
       "max_price": 100000,
       "departure_times": ["00-08", "08-18", "18-24"]
     },
-    sort: 'departure',
+    sort: 'price',
     departure_airport_id: 'EWR',
+    show_departure_airport: false,
     arrival_airport_id: 'BCN',
+    show_arrival_airport: false,
     departure_date: '2019-12-19',
     return_date: '2019-12-24',
     flex_date: true,
     showDetail: -1,
     showFilters: false,
+    airports: [],
+    airportlist: [],
     airlines: [],
+    aircrafts: [],
     flights: [],
     result: [],
     cart: [],
-    customer: 'customer',
-    seat_class: "business",
-    special_meal: "regular",
+    customer: 'cr',
+    seat_class: "first",
+    special_meal: "vegetarian",
     number_of_seats: 1,
     reservations: [],
     tickets: {}
@@ -61,7 +67,7 @@ var appVM = new Vue({
   computed: {
     filteredResult: function() {
       // return this.result;
-      var filtered = this.result.filter(
+      let filtered = this.result.filter(
         (c)=>{
           return c.length-1<=this.filters.stops
           && c.every((f)=>{ return this.filters.airlines.includes(this.getFlight(f).airline_id) })
@@ -81,30 +87,68 @@ var appVM = new Vue({
       }
       this.showDetail = -1;
       return filtered;
+    },
+    filteredDepartureAirport: function() {
+      let filtered = this.airportlist;
+      if (this.departure_airport_id.length>2) {
+        filtered = this.airportlist.filter(
+          (a)=>{ return a.airport_name.toUpperCase().includes(this.departure_airport_id) 
+            || a.airport_id.toUpperCase().includes(this.departure_airport_id)
+            || a.airport_tags.toUpperCase().includes(this.departure_airport_id); 
+          });
+      }
+      return filtered;
+    },
+    filteredArrivalAirport: function() {
+      let filtered = this.airportlist;
+      if (this.arrival_airport_id.length>2) {
+        filtered = this.airportlist.filter(
+          (a)=>{ return a.airport_name.toUpperCase().includes(this.arrival_airport_id) 
+            || a.airport_id.toUpperCase().includes(this.arrival_airport_id)
+            || a.airport_tags.toUpperCase().includes(this.arrival_airport_id); 
+          });
+      }
+      return filtered;
     }
   },
   methods: {
     initData: async function() {
       console.log("init data");
+      console.log(document.referrer);
       let response, data;
       // fetch user
-      response = await fetch('https://localhost:8443/user');
+      response = await fetch('/user');
       this.user = await response.json();
       console.log(this.user);
 
       // fetch airlines
       let airlines = [];
-      response = await fetch('https://localhost:8443/airline');
+      response = await fetch('/airline');
       data = await response.json();
       data.forEach((a)=>{ airlines[a.airline_id] = a.airline_name; });
       this.airlines = airlines;
+      console.dir(this.airlines);
 
-      // TODO fetch airports
-      // TODO fetch aircrafts
+      // fetch airports
+      let airports = [];
+      response = await fetch('/airport');
+      data = await response.json();
+      this.airportlist = data;
+      data.forEach((a)=>{ airports[a.airport_id] = a; });
+      this.airports = airports;
+      console.dir(this.airports);
+
+      // fetch aircrafts
+      let aircrafts = [];
+      response = await fetch('/aircraft');
+      data = await response.json();
+      data.forEach((a)=>{ aircrafts[a.aircraft_id] = a; });
+      this.aircrafts = aircrafts;
+      console.dir(this.aircrafts);
 
       // fetch flights
       let flights = [];
-      response = await fetch('https://localhost:8443/flight');
+      response = await fetch('/flight');
       data = await response.json();
       data.forEach((f)=>{
         flights[f.airline_id+'-'+f.flight_id+'-'+f.departure_weekday] = f;
@@ -134,12 +178,12 @@ var appVM = new Vue({
         d.setMonth(parseInt(this.departure_date.split('-')[1])-1);
         d.setDate(parseInt(this.departure_date.split('-')[2])+i);
         let departure_date = yyyymmdd(d);
-        let response = await fetch('https://localhost:8443/search'
+        let response = await fetch('/search'
               +'?da='+this.departure_airport_id
               +'&aa='+this.arrival_airport_id
               +'&dd='+departure_date
               +'&nl='+'60'
-              +'&xl='+'90');
+              +'&xl='+'720');
         let data = await response.json();
         data.forEach((r)=>{ 
           result.push(
@@ -174,7 +218,7 @@ var appVM = new Vue({
         d.setMonth(parseInt(this.return_date.split('-')[1])-1);
         d.setDate(parseInt(this.return_date.split('-')[2])+i);
         let departure_date = yyyymmdd(d);
-        let response = await fetch('https://localhost:8443/search'
+        let response = await fetch('/search'
               +'?aa='+this.departure_airport_id
               +'&da='+this.arrival_airport_id
               +'&dd='+departure_date
@@ -202,7 +246,7 @@ var appVM = new Vue({
     addFlight: function(route) {
       this.cart.push(route);
       localStorage.setItem('myCart', JSON.stringify(this.cart));
-      this.displayMessage("Your selection has been successfully added into your shopping cart.");
+      this.displayMessage("Your selection has been added to your shopping cart.");
     },
     quickCheckout: function(route) {
       this.addFlight(route);
@@ -231,7 +275,7 @@ var appVM = new Vue({
       console.dir(reservation);
 
       // create reservation with pending status
-      let url = "https://localhost:8443";
+      let url = "";
       if (this.isCustomerRep()) url = url+"/cr";
       let response = await fetch(url+"/reservation", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -276,7 +320,7 @@ var appVM = new Vue({
         });
       }
 
-      // confirm reservation
+      // book all tickets, some may be waitlisted
       const promises = tickets.map(async (ticket)=>{
         response = await fetch(url+"/ticket", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -291,7 +335,7 @@ var appVM = new Vue({
           referrer: 'no-referrer', // no-referrer, *client
           body: JSON.stringify(ticket) // body data type must match "Content-Type" header
         });
-        console.log("created ticket leg " + ticket.leg_id);
+        console.log("Created ticket with leg_id " + ticket.leg_id);
         return response.json();  
       });
       await Promise.all(promises);
@@ -309,14 +353,41 @@ var appVM = new Vue({
         referrer: 'no-referrer', // no-referrer, *client
         body: JSON.stringify(reservation) // body data type must match "Content-Type" header
       });
-      await response.json();
-      console.log("confirmed reservation " + reservation_id);
+      let completed = await response.json();
+      console.log("Completed reservation with status " + completed.booking_status);
 
-      this.clearCart();
-      if (this.isCustomerRep()) {
-        window.location.replace("/customer_rep.html#reservation");
-      } else {
-        this.toReservation();
+      // TODO prompt if it is waitlisted
+      // TODO allow waitlisted reservation to be cancelled
+      if(completed.booking_status.localeCompare('waitlist')==0) {
+        if(!confirm("Some of your selected flights are out of tickets. Do you want to be placed on the waitlist?")) {
+          response = await fetch(url+"/reservation/"+completed.reservation_id, {
+            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify(reservation) // body data type must match "Content-Type" header
+          });    
+          completed = await response.json();
+          alert("Your reservation has been cancelled.");
+          completed = null;
+        }
+      }
+        
+      if (completed != null) {
+        this.clearCart();
+        if (this.isCustomerRep()) {
+          window.location.replace("/customer_rep.html#reservation");
+        } else if (this.isAdmin()) {
+          window.location.replace("/admin.html#reservation");
+        } else {
+          this.toReservation();
+        }    
       }
     },
     removeFlight: function(index) {
@@ -328,13 +399,13 @@ var appVM = new Vue({
       localStorage.setItem('myCart', JSON.stringify(this.cart));
     },
     toReservation: async function() {
-      let response = await fetch('https://localhost:8443/reservation');
+      let response = await fetch('/reservation');
       this.reservations = await response.json();
       this.tickets = [];
       this.currentPage = 'reservation';
     },
     deleteReservation: async function(id) {
-      let response = await fetch("https://localhost:8443/reservation/"+id, {
+      let response = await fetch("/reservation/"+id, {
         method: 'DELETE'
       });
       await response.json();
@@ -342,7 +413,7 @@ var appVM = new Vue({
       this.toReservation();
     },
     getTickets: async function(id) {
-      fetch('https://localhost:8443/tickets/'+id)
+      fetch('/tickets/'+id)
         .then((response) => {
         response.json().then((data) => {
           this.tickets = data;
@@ -387,6 +458,14 @@ var appVM = new Vue({
     },
     hideMessage: function() {
       this.showMessage = false;
+    },
+    clickaway: function(e) {
+      if(this.show_departure_airport && e.target.parentElement.id!='departure_airport') {
+        this.show_departure_airport = false;
+      };
+      if(this.show_arrival_airport && e.target.parentElement.id!='arrival_airport') {
+        this.show_arrival_airport = false;
+      };
     }
   }
 });

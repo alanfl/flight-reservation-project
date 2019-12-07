@@ -23,7 +23,7 @@ public class Ticket {
         String departure_date, 
         String price, 
         String waitlist_status
-        ){
+    ){
         this.ticket_id = ticket_id;
         this.reservation_id = reservation_id;
         this.leg_id = leg_id;

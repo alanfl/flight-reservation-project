@@ -133,7 +133,7 @@ public class ReservationAPIController {
         if (reservation != null) {
             res.delete(reservation);
         } else {
-            log.info("try to delete other's reservation");
+            log.info("A user attempted to delete someone else's reservation");
         }
         return reservation;
     }

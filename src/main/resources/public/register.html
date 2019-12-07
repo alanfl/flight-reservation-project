@@ -14,17 +14,24 @@
         <div class="header">
             <a class="logo" href="/">flight finder</a>
         </div>
-        <form class="login" action="/adduser" method="post">
+        <div class="login">
             <p>Please fill up the form:</p>
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <input type="password" name="password-confirm" placeholder="Password confirmation">
-            <input type="submit" value="Register">
-        </form>
+            <input type="text" v-model="edit_user.username" placeholder="Username">
+            <input type="password" v-model="edit_user.password" placeholder="Password">
+            <input type="password" v-model="edit_user.password_confirm" placeholder="Password confirmation">
+            <input type="submit" value="Register" v-on:click="adduser()">
+        </div>
         <div class="footer" id="footer">
             @Copyright 2019
         </div>
+        <!-- Non-Vue code -->
+        <div class="message" v-bind:class="{ show: showMessage }">
+            {{ message }}
+        </div>  
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"></script>    
+    <script id="rendered-js" src="/js/register.js"></script>
 </body>
 
 </html>

@@ -8,12 +8,7 @@ public class Aircraft {
     private int business_class_seats;
     private int first_class_seats;
     
-    public Aircraft() {
-    }
-    
-    public Aircraft(String aircraft_id) {
-        this.aircraft_id = aircraft_id;
-    }
+    public Aircraft() {}
     
     public Aircraft(String aircraft_id, String aircraft_model, String airline_id) {
         this.aircraft_id = aircraft_id;
