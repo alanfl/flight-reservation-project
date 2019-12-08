@@ -1,3 +1,6 @@
+This is not a valid SQL script, this text file
+serves only to maintain posterity of potential future records
+
 INSERT ignore airport(airport_id, airport_name)
 values('EWR', 'Newark Liberty International Airport'),
 ('JFK', 'John F. Kennedy International Airport'),

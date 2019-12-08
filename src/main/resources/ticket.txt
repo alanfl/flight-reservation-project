@@ -1,3 +1,6 @@
+This is not a valid SQL script, this text file
+serves only to maintain posterity of potential future records
+
 insert ignore ticket(ticket_id, reservation_id, leg_id, airline_id, flight_id, departure_weekday, departure_date, price, waitlist_status)
 values('t1','r1','0','UA','7','20191201','2019-12-01','300','N/A'),
 ('t2','r2','0','UA','7','20191201','2019-12-01','650','N/A'),

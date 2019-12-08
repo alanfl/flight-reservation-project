@@ -1,3 +1,6 @@
+This is not a valid SQL script, this text file
+serves only to maintain posterity of potential future records
+
 INSERT ignore user(username, password)
 	VALUES ('admin','admin'),
     ('jae','jae'),

@@ -1,3 +1,6 @@
+This is not a valid SQL script, this text file
+serves only to maintain posterity of potential future records
+
 insert ignore reservation(reservation_id, username, origin_airport_id, purchase_date, purchase_time, 
 						departure_date, departure_time, total_fare, special_meal, seat_class, booking_status)
 values ('r1', 'user','JFK','2019-11-28','12:00','2019-12-01','05:30','350','no','economic','confirmed'),
