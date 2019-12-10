@@ -1,10 +1,26 @@
 INSERT IGNORE INTO user (username, password) VALUES ('admin', 'admin');
 INSERT IGNORE INTO user (username, password) VALUES ('user', 'user');
 INSERT IGNORE INTO user (username, password) VALUES ('rep', 'rep');
+INSERT IGNORE INTO user (username, password) VALUES ('Mark', 'Mark');
+INSERT IGNORE INTO user (username, password) VALUES ('Alex', 'Alex');
+INSERT IGNORE INTO user (username, password) VALUES ('John', 'John');
+INSERT IGNORE INTO user (username, password) VALUES ('Asher', 'Asher');
+INSERT IGNORE INTO user (username, password) VALUES ('Esta', 'Esta');
+INSERT IGNORE INTO user (username, password) VALUES ('Diana', 'Diana');
+INSERT IGNORE INTO user (username, password) VALUES ('Mira', 'Mira');
+INSERT IGNORE INTO user (username, password) VALUES ('Stephanie', 'Stephanie');
 
 INSERT IGNORE INTO role (username, role) VALUES ('admin', 'admin');
 INSERT IGNORE INTO role (username, role) VALUES ('rep', 'customer_representative');
 INSERT IGNORE INTO role (username, role) VALUES ('user', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Mark', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Alex', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('John', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Asher', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Esta', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Diana', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Mira', 'customer');
+INSERT IGNORE INTO role (username, role) VALUES ('Stephanie', 'customer');
 
 INSERT IGNORE INTO airline (airline_id, airline_name) VALUES ('UA', 'United Airlines');
 INSERT IGNORE INTO airline (airline_id, airline_name) VALUES ('DL', 'Delta Airlines');
@@ -137,7 +153,6 @@ INSERT IGNORE INTO airport (airport_id, airport_name, airport_tags)
 VALUES ('YVR', 'Vancouver International Airport', 'vancouver, canada');
 
 
-
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('UA', '100', 'EWR', 'BCN', 6, 0, '22:50', '08:20', 'N14001', 420.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
@@ -165,80 +180,73 @@ VALUES ('UA', '271', 'JFK', 'MUC', 5, 5, '15:00', '22:15', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('UA', '271', 'JFK', 'MUC', 6, 6, '15:00', '22:15', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 0, 0, '8:00', '13:15', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 0, 0, '8:00', '13:15', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 1, 1, '8:00', '13:15', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 1, 1, '8:00', '13:15', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 2, 2, '8:00', '13:20', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 2, 2, '8:00', '13:20', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 3, 3, '8:00', '13:20', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 3, 3, '8:00', '13:20', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 4, 4, '8:00', '13:15', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 4, 4, '8:00', '13:15', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 5, 5, '8:00', '13:15', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 5, 5, '8:00', '13:15', 'N928UW', 780.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'MUC', 'JFK', 6, 6, '8:00', '13:20', 'N928UW', 780.00);
+VALUES ('UA', '272', 'MUC', 'JFK', 6, 6, '8:00', '13:20', 'N928UW', 780.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'YVR', 'EWR', 2, 2, '10:30', '12:15', 'N14008', 265.00);
+VALUES ('UA', '277', 'YVR', 'EWR', 2, 2, '10:30', '12:15', 'N14008', 265.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'YVR', 'EWR', 4, 4, '10:30', '12:15', 'N14008', 265.00);
+VALUES ('UA', '277', 'YVR', 'EWR', 4, 4, '10:30', '12:15', 'N14008', 265.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'EWR', 'YVR', 2, 2, '6:15', '8:20', 'N14008', 265.00);
+VALUES ('UA', '278', 'EWR', 'YVR', 2, 2, '6:15', '8:20', 'N14008', 265.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'EWR', 'YVR', 4, 4, '6:15', '8:20', 'N14008', 265.00);
+VALUES ('UA', '278', 'EWR', 'YVR', 4, 4, '6:15', '8:20', 'N14008', 265.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'DUB', 'JFK', 1, 1, '18:30', '22:15', 'N33286', 550.00);
+VALUES ('UA', '241', 'DUB', 'JFK', 1, 1, '18:30', '22:15', 'N33286', 550.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'DUB', 'JFK', 3, 3, '18:30', '22:15', 'N33286', 550.00);
+VALUES ('UA', '241', 'DUB', 'JFK', 3, 3, '18:30', '22:15', 'N33286', 550.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'JFK', 'DUB', 1, 1, '12:15', '16:20', 'N33286', 550.00);
+VALUES ('UA', '245', 'JFK', 'DUB', 1, 1, '12:15', '16:20', 'N33286', 550.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '271', 'JFK', 'DUB', 3, 3, '12:15', '16:20', 'N33286', 550.00);
+VALUES ('UA', '245', 'JFK', 'DUB', 3, 3, '12:15', '16:20', 'N33286', 550.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '171', 'DUB', 'JFK', 1, 1, '18:30', '22:15', 'N522DN', 510.00);
+VALUES ('DL', '771', 'DUB', 'JFK', 1, 1, '18:30', '22:15', 'N522DN', 510.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '171', 'DUB', 'JFK', 3, 3, '18:30', '22:15', 'N522DN', 510.00);
+VALUES ('DL', '771', 'DUB', 'JFK', 3, 3, '18:30', '22:15', 'N522DN', 510.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '171', 'JFK', 'DUB', 1, 1, '12:15', '16:20', 'N522DN', 510.00);
+VALUES ('DL', '772', 'JFK', 'DUB', 1, 1, '12:15', '16:20', 'N522DN', 510.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '171', 'JFK', 'DUB', 3, 3, '12:15', '16:20', 'N522DN', 510.00);
+VALUES ('DL', '772', 'JFK', 'DUB', 3, 3, '12:15', '16:20', 'N522DN', 510.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('DL', '111', 'MAD', 'EWR', 1, 1, '8:30', '16:15', 'N501DN', 750.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('DL', '111', 'MAD', 'EWR', 3, 3, '8:30', '16:15', 'N501DN', 750.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '111', 'EWR', 'MAD', 1, 2, '22:15', '6:20', 'N501DN', 750.00);
+VALUES ('DL', '112', 'EWR', 'MAD', 1, 2, '22:15', '6:20', 'N501DN', 750.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '111', 'EWR', 'MAD', 3, 4, '22:15', '6:20', 'N501DN', 750.00);
-
-INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('UA', '100', 'EWR', 'BCN', 6, 0, '22:50', '08:20', 'N14001', 420.00);
-INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '100', 'EWR', 'BCN', 3, 3, '00:10', '07:50', 'N501DN', 450.00);
-INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('DL', '100', 'EWR', 'BCN', 5, 5, '00:10', '07:50', 'N501DN', 450.00);
+VALUES ('DL', '112', 'EWR', 'MAD', 3, 4, '22:15', '6:20', 'N501DN', 750.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('F9', '700', 'JFK', 'EWR', 1, 1, '8:30', '11:15', 'N22525', 120.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('F9', '700', 'JFK', 'EWR', 3, 3, '8:30', '11:15', 'N22525', 120.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('F9', '700', 'EWR', 'JFK', 1, 1, '13:15', '15:20', 'N22525', 120.00);
+VALUES ('F9', '701', 'EWR', 'JFK', 1, 1, '13:15', '15:20', 'N22525', 120.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('F9', '700', 'EWR', 'JFK', 3, 3, '13:15', '15:20', 'N22525', 120.00);
+VALUES ('F9', '701', 'EWR', 'JFK', 3, 3, '13:15', '15:20', 'N22525', 120.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('B6', '445', 'JFK', 'EWR', 1, 1, '8:30', '11:15', 'N12855', 150.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('B6', '445', 'JFK', 'EWR', 3, 3, '8:30', '11:15', 'N12855', 150.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('B6', '445', 'EWR', 'JFK', 1, 1, '13:15', '15:20', 'N12855', 150.00);
+VALUES ('B6', '446', 'EWR', 'JFK', 1, 1, '13:15', '15:20', 'N12855', 150.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('B6', '445', 'EWR', 'JFK', 3, 3, '13:15', '15:20', 'N12855', 150.00);
+VALUES ('B6', '446', 'EWR', 'JFK', 3, 3, '13:15', '15:20', 'N12855', 150.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('DL', '160', 'DUB', 'EWR', 1, 2, '19:30', '3:40', 'N301DV', 550.00);
@@ -254,7 +262,7 @@ INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_
 VALUES ('DL', '160', 'EWR', 'DUB', 5, 5, '11:30', '18:25', 'N301DV', 520.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('AA', '218', 'YVR', 'JFK', 1, 1, '11:30', '14:40', 'N396AN', 270.00);
+VALUES ('AA', '219', 'YVR', 'JFK', 1, 1, '11:30', '14:40', 'N396AN', 270.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('AA', '218', 'JFK', 'YVR', 1, 1, '07:30', '10:20', 'N396AN', 280.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
@@ -267,7 +275,7 @@ INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_
 VALUES ('AA', '218', 'JFK', 'YVR', 5, 5, '07:30', '10:20', 'N396AN', 280.00);
 
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
-VALUES ('AA', '211', 'MAD', 'JFK', 1, 2, '20:10', '04:50', 'N948UW', 980.00);
+VALUES ('AA', '212', 'MAD', 'JFK', 1, 2, '20:10', '04:50', 'N948UW', 980.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
 VALUES ('AA', '211', 'JFK', 'MAD', 1, 1, '11:30', '18:20', 'N948UW', 980.00);
 INSERT IGNORE INTO flight (airline_id, flight_id, departure_airport_id, arrival_airport_id, departure_weekday, arrival_weekday, departure_time, arrival_time, aircraft_id, price) 
