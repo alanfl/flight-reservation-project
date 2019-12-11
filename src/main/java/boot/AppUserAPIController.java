@@ -1,13 +1,14 @@
 package boot;
 
 import java.util.*;
+import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 
-import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 
 // needed for cross domain Ajax
-@CrossOrigin(origins="http://s.codepen.io")
+@CrossOrigin(origins={"http://codepen.io", "https://codepen.io", "https://cdpn.io"})
 @RestController
 public class AppUserAPIController {
 
@@ -19,27 +20,21 @@ public class AppUserAPIController {
     @Autowired
     RoleService rs;
 
-    @RequestMapping(value="/user", method=RequestMethod.GET)
+	@RequestMapping(value="/user", method=RequestMethod.GET)
     public AppUser getAppUser(Principal principal) {
         AppUser user = new AppUser();
         if (principal != null) {
             String username = principal.getName();
             user = new AppUser(username, null);
-            ArrayList<String> roles = new ArrayList<String>(); // This is important, some users may have multiple roles
-            
+            ArrayList<String> roles = new ArrayList<String>();
             for(Role r: rs.getRoles(username)) {
                 roles.add(r.getRole());
             }
-
             user.setRoles(roles);
         }
-
         return user;
     }
 
-    // Having AppUser as input will make Spring do the following
-    // 1. create a AppUser object and 
-    // 2. map client input to object attribute with same name
 	@RequestMapping(value="/user", method=RequestMethod.POST)
     public AppUser createAppUser(@RequestBody AppUser auser) {
     	return aus.save(auser);
@@ -71,8 +66,7 @@ public class AppUserAPIController {
         return new AppUser();
     }
 
-    // This should be role gated, only admins can have access to 
-	@RequestMapping(value="/admin/user", method=RequestMethod.GET)
+    @RequestMapping(value="admin/user", method=RequestMethod.GET)
     public Iterable<AppUser> searchAppUsers(
     	@RequestParam(value="name", required=false) String[] names) {
         // name=val1&name=val2 passed as an array

@@ -1,4 +1,4 @@
-var app = new Vue({
+var appVM = new Vue({
     el: '#app',
     data: {
         edit_user: {
@@ -11,32 +11,27 @@ var app = new Vue({
         errorMessage: false
     },
     // special function will be automatcially invoked when you create Vue instance.  
-    created: function() {
-    },
-    computed: {
-    },
+    created: function() {},
+    computed: {},
     methods: {
         adduser: async function() {
-            if(this.edit_user.username==null || this.edit_user.username.length==0) {
-                this.displayMessage("Error: A username is required.", "error");
+            if (this.edit_user.username == null || this.edit_user.username.length == 0) {
+                this.displayMessage("Error: username is required.", "error");
                 return;
             }
-            
-            if(this.edit_user.password==null || this.edit_user.password.length==0) {
-                this.displayMessage("Error: A password is required.", "error");
+            if (this.edit_user.password == null || this.edit_user.password.length == 0) {
+                this.displayMessage("Error: password is required.", "error");
+                return;
+            }
+            if (this.edit_user.password_confirm == null) {
+                this.displayMessage("Error: password confirmation is required.", "error");
+                return;
+            }
+            if (this.edit_user.password.localeCompare(this.edit_user.password_confirm) != 0) {
+                this.displayMessage("Error: password does NOT match.", "error");
                 return;
             }
 
-            if(this.edit_user.password_confirm==null) {
-                this.displayMessage("Error: Password confirmation is required.", "error");
-                return;
-            }
-
-            if(this.edit_user.password.localeCompare(this.edit_user.password_confirm)!=0) {
-                this.displayMessage("Error: Passwords do not match.", "error");
-            return;
-            }
-  
             // create new airport
             let response = await fetch("/user", {
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -45,17 +40,15 @@ var app = new Vue({
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
                     'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 redirect: 'follow', // manual, *follow, error
                 referrer: 'no-referrer', // no-referrer, *client
                 body: JSON.stringify(this.edit_user) // body data type must match "Content-Type" header
             });
-
             await response.json();
-
-            if(response.status != 200) {
-                this.displayMessage("Error: A user with this username already exists, please choose another username.", "error");
+            if (response.status != 200) {
+                this.displayMessage("Error: this username already exists, choose another username.", "error");
             } else {
                 window.location.href = "/login";
             }
@@ -63,8 +56,8 @@ var app = new Vue({
         displayMessage: function(message, error) {
             this.message = message;
             this.showMessage = true;
-            if (error) 
-                this.errorMessage = true; 
+            if (error)
+                this.errorMessage = true;
             else
                 this.errorMessage = false;
             setTimeout(this.hideMessage, 3000);

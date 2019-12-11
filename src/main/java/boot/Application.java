@@ -1,7 +1,7 @@
 package boot;
 
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+// import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.builder.*;
 import org.springframework.boot.context.web.*;
 
@@ -21,11 +21,9 @@ import org.slf4j.*;
 
 import java.util.*;
 
-//@SpringBootApplication
+// @SpringBootApplication
 @Configuration
-@EnableAutoConfiguration(exclude = {
-	JpaRepositoriesAutoConfiguration.class
-})
+@EnableAutoConfiguration
 @ComponentScan
 public class Application extends SpringBootServletInitializer {
 	@Autowired
@@ -53,25 +51,24 @@ public class Application extends SpringBootServletInitializer {
 		public class CustomizedUserDetailsService 
 		  implements UserDetailsService {
 
-			// form authentication via /login and login.html
-			@Override
-			public UserDetails loadUserByUsername(String username) 
-					throws UsernameNotFoundException {
-					List<GrantedAuthority> authorities = new ArrayList<>();
-					AppUser user;
-					try {
-						user = appUserService.get(username);
-						if (user != null) {
-							Iterable<Role> roles = roleService.getRoles(user.getUsername());
-							roles.forEach(role->authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRole())));
+				// form authentication via /login and login.html
+				@Override
+				public UserDetails loadUserByUsername(String username) 
+						throws UsernameNotFoundException {
+						List<GrantedAuthority> authorities = new ArrayList<>();
+						AppUser user;
+						try {
+							user = appUserService.get(username);
+							if (user != null) {
+								Iterable<Role> roles = roleService.getRoles(user.getUsername());
+								roles.forEach(role->authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRole())));
+							}
+						} catch(Throwable t) {
+							throw new UsernameNotFoundException("User Not Found");
 						}
-					} catch(Throwable t) {
-						throw new UsernameNotFoundException("User Not Found");
-					}
-					
-				return new User(user.getUsername(), user.getPassword(), authorities);
-			}
-		}
+						return new User(user.getUsername(), user.getPassword(), authorities);
+				}
+	  }
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {

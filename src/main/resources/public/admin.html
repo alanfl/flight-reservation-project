@@ -23,12 +23,9 @@
                     <a href="/customer_rep.html#aircraft" v-show="isCustomerRep()">Aircrafts</a>
                     <a href="/customer_rep.html#flight" v-show="isCustomerRep()">Flights</a>
                     <a href="/customer_rep.html#waitlist" v-show="isCustomerRep()">Waitlists</a>
-                    <a href="/index.html#reservation" v-show="user.username && !isCustomerRep() && !isAdmin()"
-                        v-on:click="toReservation()">Reservations</a>
-                    <a href="/customer_rep.html#reservation"
-                        v-show="user.username && isCustomerRep() && !isAdmin()">Reservations</a>
-                    <a href="/admin.html#reservation"
-                        v-show="user.username && !isCustomerRep() && isAdmin()">Reservations</a>
+                    <a href="/index.html#reservation" v-show="user.username && !isCustomerRep() && !isAdmin()" v-on:click="toReservation()">Reservations</a>
+                    <a href="/customer_rep.html#reservation" v-show="user.username && isCustomerRep() && !isAdmin()">Reservations</a>
+                    <a href="/admin.html#reservation" v-show="user.username && !isCustomerRep() && isAdmin()">Reservations</a>
                     <a href="/index.html#cart">Cart</a>
                     <a href="/logout" v-show="user.username" v-on:click="logout()">logout</a>
                     <a href="/login" v-show="!user.username">login</a>
@@ -49,9 +46,7 @@
                     </tr>
                     <tr>
                         <td>Roles:</td>
-                        <td><input type="checkbox" v-model="edit_user.roles" value='admin' />Admin <input
-                                type="checkbox" v-model="edit_user.roles"
-                                value='customer_representative' />CustomerRepresentative</td>
+                        <td><input type="checkbox" v-model="edit_user.roles" value='admin' />Admin <input type="checkbox" v-model="edit_user.roles" value='customer_representative' />CustomerRepresentative</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -62,8 +57,7 @@
                 </table>
             </div>
             <div class="main">
-                <h4>Users: <a href="#user" v-on:click="edit_user={roles:[]}; showUserEditor=!showUserEditor">Add new
-                        user</a></h4>
+                <h4>Users: <a href="#user" v-on:click="edit_user={roles:[]}; showUserEditor=!showUserEditor">Add new user</a></h4>
                 <div class="result">
                     <table class="flights">
                         <tr>
@@ -113,26 +107,20 @@
                         <td>
                             <table>
                                 <tr>
-                                    <td><input type="month" v-model="search_report.month"
-                                            placeholder="Purchase Month" /></td>
+                                    <td><input type="month" v-model="search_report.month" placeholder="Purchase Month" /></td>
                                     <td><input type="submit" value="By Month" v-on:click="getRevenueByMonth()" /></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" v-model="search_report.airline_id"
-                                            placeholder="Airline Code" /></td>
-                                    <td><input type="submit" value="By Airline" v-on:click="getRevenueByAirline()" />
-                                    </td>
+                                    <td><input type="text" v-model="search_report.airline_id" placeholder="Airline Code" /></td>
+                                    <td><input type="submit" value="By Airline" v-on:click="getRevenueByAirline()" /></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" v-model="search_report.flight_id"
-                                            placeholder="Flight Number" /></td>
+                                    <td><input type="text" v-model="search_report.flight_id" placeholder="Flight Number" /></td>
                                     <td><input type="submit" value="By Flight" v-on:click="getRevenueByFlight()" /></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" v-model="search_report.username"
-                                            placeholder="Customer Username" /></td>
-                                    <td><input type="submit" value="By Customer" v-on:click="getRevenueByCustomer()" />
-                                    </td>
+                                    <td><input type="text" v-model="search_report.username" placeholder="Customer Username" /></td>
+                                    <td><input type="submit" value="By Customer" v-on:click="getRevenueByCustomer()" /></td>
                                 </tr>
                             </table>
                         </td>
@@ -146,10 +134,8 @@
             <h4>Search:</h4>
             <div class="search">
                 <div>
-                    <input type="text" name="airport_id" placeholder="Airport Code" v-model="search_flight.airport_id"
-                        v-on:keyup.enter="search_flight.airport_id_filter=search_flight.airport_id" />
-                    <input type="submit" value="Search"
-                        v-on:click="search_flight.airport_id_filter=search_flight.airport_id" />
+                    <input type="text" name="airport_id" placeholder="Airport Code" v-model="search_flight.airport_id" v-on:keyup.enter="search_flight.airport_id_filter=search_flight.airport_id" />
+                    <input type="submit" value="Search" v-on:click="search_flight.airport_id_filter=search_flight.airport_id" />
                 </div>
             </div>
             <div class="main">
@@ -192,14 +178,10 @@
                 <h4>Search:</h4>
                 <div class="search">
                     <div>
-                        <input type="text" name="customer" placeholder="Customer Username"
-                            v-model="search_reservation.username" v-on:keyup.enter="toReservation()" />
-                        <input type="text" name="airline_id" placeholder="Airline Code"
-                            v-model="search_reservation.airline_id" />
-                        <input type="text" name="flight_id" placeholder="Flight Number"
-                            v-model="search_reservation.flight_id" />
-                        <input type="date" name="departure_date" placeholder="Depature Date"
-                            v-model="search_reservation.departure_date" />
+                        <input type="text" name="customer" placeholder="Customer Username" v-model="search_reservation.username" v-on:keyup.enter="toReservation()" />
+                        <input type="text" name="airline_id" placeholder="Airline Code" v-model="search_reservation.airline_id" />
+                        <input type="text" name="flight_id" placeholder="Flight Number" v-model="search_reservation.flight_id" />
+                        <input type="date" name="departure_date" placeholder="Depature Date" v-model="search_reservation.departure_date" />
                         <input type="submit" value="Search" v-on:click="toReservation()" />
                     </div>
                 </div>
@@ -247,9 +229,7 @@
                                 <td>{{ r.total_fare }}</td>
                                 <td>{{ r.booking_status }}</td>
                                 <td><a href="#reservation" v-on:click="getTickets(r.reservation_id)">Details</a></td>
-                                <td><a href="#"
-                                        v-show="r.seat_class!='economy' && r.username.localeCompare(user.username)==0"
-                                        v-on:click="deleteReservation(r.reservation_id)">Cancel</a></td>
+                                <td><a href="#" v-show="r.seat_class!='economy' && r.username.localeCompare(user.username)==0" v-on:click="deleteReservation(r.reservation_id)">Cancel</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -276,13 +256,9 @@
                         <tbody v-for="(t, index) in tickets">
                             <tr>
                                 <td>{{ t.airline_id+"-"+t.flight_id }}</td>
-                                <td>{{ t.departure_date }}
-                                    {{ getFlight(t.airline_id+"-"+t.flight_id+"-"+t.departure_weekday).departure_time }}
-                                </td>
+                                <td>{{ t.departure_date }} {{ getFlight(t.airline_id+"-"+t.flight_id+"-"+t.departure_weekday).departure_time }}</td>
                                 <td>
-                                    {{ getFlight(t.airline_id+"-"+t.flight_id+"-"+t.departure_weekday).departure_airport_id }}
-                                    -
-                                    {{ getFlight(t.airline_id+"-"+t.flight_id+"-"+t.departure_weekday).arrival_airport_id }}
+                                    {{ getFlight(t.airline_id+"-"+t.flight_id+"-"+t.departure_weekday).departure_airport_id }} - {{ getFlight(t.airline_id+"-"+t.flight_id+"-"+t.departure_weekday).arrival_airport_id }}
                                 </td>
                                 <td>{{ t.booking_status }}</td>
                             </tr>
@@ -314,4 +290,5 @@
 
     <script id="rendered-js" src="/js/admin.js"></script>
 </body>
+
 </html>

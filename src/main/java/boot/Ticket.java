@@ -1,58 +1,66 @@
 package boot;
 
-import java.util.Date;
-
 public class Ticket {
-    private String ticket_id;
-    private String reservation_id;
-    private String leg_id;
-    private String airline_id;
-    private String flight_id;
-    private String departure_weekday;
-    private String departure_date;
-    private String price;
-    private String waitlist_status;
+  String reservation_id;
+  String ticket_id;
+  String leg_id;
+  String airline_id;
+  String flight_id;
+  String departure_weekday;
+  String departure_date;
+  String price;
+  String booking_status;
 
-    public Ticket(
-        String ticket_id, 
-        String reservation_id, 
-        String leg_id, 
-        String airline_id, 
-        String flight_id, 
-        String departure_weekday, 
-        String departure_date, 
-        String price, 
-        String waitlist_status
-    ){
-        this.ticket_id = ticket_id;
-        this.reservation_id = reservation_id;
-        this.leg_id = leg_id;
-        this.airline_id = airline_id;
-        this.flight_id = flight_id;
-        this.departure_weekday = departure_weekday;
-        this.departure_date = departure_date;
-        this.price = price;
-        this.waitlist_status = waitlist_status;
-    }
+  public Ticket() {
+  }
 
-    public String getTicketId(){ return this.ticket_id; }
+  public Ticket(
+    String reservation_id,
+    String ticket_id,
+    String leg_id,
+    String airline_id,
+    String flight_id,
+    String departure_weekday,
+    String departure_date,
+    String price,
+    String booking_status
+    ) {
+    this.reservation_id = reservation_id;
+    this.ticket_id = ticket_id;
+    this.leg_id = leg_id;
+    this.airline_id = airline_id;
+    this.flight_id = flight_id;
+    this.departure_weekday = departure_weekday;
+    this.departure_date = departure_date;
+    this.price = price;
+    this.booking_status = booking_status;
+  }
 
-    public String getReservationId(){ return this.reservation_id; }
-
-    public String getLegId(){ return this.leg_id; }
-
-    public String getAirlineId(){ return this.airline_id; }
-
-    public String getFlightId(){ return this.flight_id; }
-
-    public String getDepartureWeekday(){ return this.departure_weekday; }
-
-    public String getDepartureDate(){ return this.departure_date; }
-
-    public String getPrice(){ return this.price; }
-
-    public String getWaitlistStatus(){ return this.waitlist_status; }
-
-
-
+  public String getReservation_id() {
+      return this.reservation_id;
+  }
+  public String getTicket_id() {
+      return this.ticket_id;
+  }
+  public String getLeg_id() {
+    return this.leg_id;
+  }
+  public String getAirline_id() {
+    return this.airline_id;
+  }
+  public String getFlight_id() {
+    return this.flight_id;
+  }
+  public String getDeparture_weekday() {
+    return this.departure_weekday;
+  }
+  public String getDeparture_date() {
+    return this.departure_date;
+  }
+  public String getPrice() {
+    return this.price;
+  }
+  public String getBooking_status() {
+    return this.booking_status;
+  }
 }

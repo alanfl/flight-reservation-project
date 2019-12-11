@@ -1,54 +1,58 @@
 package boot;
 
+import java.util.ArrayList;
+
 public class Aircraft {
-    private String aircraft_id;
-    private String aircraft_model;
-    private String airline_id;
-    private int economy_class_seats;
-    private int business_class_seats;
-    private int first_class_seats;
-    
-    public Aircraft() {}
-    
-    public Aircraft(String aircraft_id, String aircraft_model, String airline_id) {
-        this.aircraft_id = aircraft_id;
-        this.aircraft_model = aircraft_model;
-        this.airline_id = airline_id;
-    }
-    
-    public String getAircraftId() {
-        return this.aircraft_id;
-    }
-    
-    public String getAircraftModel() {
-        return this.aircraft_model;
-    }
-    
-    public String getAirlineId() {
-        return this.airline_id;
-    }
+  private String aircraft_id;
+  private String airline_id;
+  private String aircraft_model;
+  private int economy_seats;
+  private int business_seats;
+  private int first_seats;
 
-    public int getEconomyClassSeats() {
-        return this.economy_class_seats;
-    }
+  public Aircraft() {
+  }
 
-    public int getBusinessClassSeats() {
-        return this.business_class_seats;
-    }
+  public Aircraft(String aircraft_id, String airline_id, String aircraft_model) {
+    this.aircraft_id = aircraft_id;
+    this.airline_id = airline_id;
+    this.aircraft_model = aircraft_model;
+  }
 
-    public int getFirstClassSeats() {
-        return this.first_class_seats;
-    }
+  // getter needed for JSON
+  public String getAirline_id() {
+    return this.airline_id;
+  }
 
-    public void setEconomyClassSeats(int seats) {
-        this.economy_class_seats = seats;
-    }
+  public String getAircraft_id() {
+    return this.aircraft_id;
+  }
 
-    public void setBusinessClassSeats(int seats) {
-        this.business_class_seats = seats;
-    }
+  public String getAircraft_model() {
+    return this.aircraft_model;
+  }
 
-    public void setFirstClassSeats(int seats) {
-        this.first_class_seats = seats;
-    }
+  public int getEconomy_seats() {
+    return this.economy_seats;
+  }
+
+  public int getBusiness_seats() {
+    return this.business_seats;
+  }
+
+  public int getFirst_seats() {
+    return this.first_seats;
+  }
+
+  public void setEconomy_seats(int i) {
+    this.economy_seats = i;
+  }
+
+  public void setBusiness_seats(int i) {
+    this.business_seats = i;
+  }
+
+  public void setFirst_seats(int i) {
+    this.first_seats = i;
+  }
 }

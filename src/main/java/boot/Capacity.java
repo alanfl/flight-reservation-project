@@ -15,11 +15,11 @@ public class Capacity {
     }
 
     // getter needed for JSON
-    public String getAircraftId() {
+    public String getAircraft_id() {
         return this.aircraft_id;
     }
 
-    public String getSeatClass() {
+    public String getSeat_class() {
       return this.seat_class;
     }
 

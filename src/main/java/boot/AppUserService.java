@@ -36,22 +36,22 @@ public class AppUserService {
     );
     return user;
   }
-
+  
   public AppUser upsert(AppUser u) {
     if (u.getPassword() != null) {
       jdbc.update("INSERT INTO user(username, password) "
-                + "VALUES(?, ?) ON DUPLICATE KEY UPDATE "
-                + "username=?, password=?",
+        + "VALUES(?, ?) ON DUPLICATE KEY UPDATE "
+        + "username=?, password=?",
         u.getUsername(), u.getPassword(),
-        u.getUsername(), u.getPassword()
+        u.getUsername(), u.getPassword()  // arguments
       );
     }
 
     return u;
   }
-  
-  public void delete(AppUser user) {
-    jdbc.update("DELETE FROM user WHERE username=?", user.getUsername());
+
+  public void delete(AppUser u) {
+    jdbc.update("DELETE FROM user WHERE username=?", u.getUsername());
   }
   
   public Iterable<AppUser> searchAppUsers(String[] names) {

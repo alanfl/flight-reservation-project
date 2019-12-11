@@ -12,15 +12,6 @@ INSERT IGNORE INTO user (username, password) VALUES ('Stephanie', 'Stephanie');
 
 INSERT IGNORE INTO role (username, role) VALUES ('admin', 'admin');
 INSERT IGNORE INTO role (username, role) VALUES ('rep', 'customer_representative');
-INSERT IGNORE INTO role (username, role) VALUES ('user', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Mark', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Alex', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('John', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Asher', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Esta', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Diana', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Mira', 'customer');
-INSERT IGNORE INTO role (username, role) VALUES ('Stephanie', 'customer');
 
 INSERT IGNORE INTO airline (airline_id, airline_name) VALUES ('UA', 'United Airlines');
 INSERT IGNORE INTO airline (airline_id, airline_name) VALUES ('DL', 'Delta Airlines');

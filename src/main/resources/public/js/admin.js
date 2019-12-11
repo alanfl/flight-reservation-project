@@ -14,7 +14,7 @@ var appVM = new Vue({
         edit_user: {},
         showUserEditor: false,
         flights: [], // refernce data
-        search_flight: {  // maintenace list
+        search_flight: { // maintenace list
             airport_id: null,
             airport_id_filter: null
         }, // search form
@@ -44,7 +44,7 @@ var appVM = new Vue({
         currentPage: 'report',
     },
     // special function will be automatcially invoked when you create Vue instance.  
-    created: function () {
+    created: function() {
         if (window.location.hash) {
             let page = window.location.hash.split("#")[1];
             console.log("page: " + page);
@@ -59,18 +59,21 @@ var appVM = new Vue({
         this.initData();
     },
     computed: {
-        filteredFlightlist: function () {
+        filteredFlightlist: function() {
             // return this.flightlist;
-            if (this.search_flight.airport_id_filter)
+            if (this.search_flight.airport_id_filter) {
                 this.search_flight.airport_id_filter = this.search_flight.airport_id_filter.toUpperCase();
-            return this.flightlist.filter((f) => {
-                return f.departure_airport_id.localeCompare(this.search_flight.airport_id_filter) == 0 ||
-                    f.arrival_airport_id.localeCompare(this.search_flight.airport_id_filter) == 0
-            });
+                return this.flightlist.filter((f) => {
+                    return f.departure_airport_id.localeCompare(this.search_flight.airport_id_filter) == 0 ||
+                        f.arrival_airport_id.localeCompare(this.search_flight.airport_id_filter) == 0
+                });
+            } else {
+                return this.flightlist;
+            }
         }
     },
     methods: {
-        initData: async function () {
+        initData: async function() {
             console.log("init data");
             let this_month = ((new Date().getYear()) + 1900) + '-' + ((new Date().getMonth()) + 1);
             this.search_report.month = this_month;
@@ -85,43 +88,43 @@ var appVM = new Vue({
             this.loadFlight();
             this.getReports();
         },
-        getReports: async function () {
+        getReports: async function() {
             response = await fetch('/admin/report/top_customers');
             this.reports.top_customers = await response.json();
             response = await fetch('/admin/report/top_flights');
             this.reports.top_flights = await response.json();
         },
-        getRevenueByMonth: async function () {
-            response = await fetch('/admin/report/revenue_by_month?month='
-                + this.search_report.month);
+        getRevenueByMonth: async function() {
+            response = await fetch('/admin/report/revenue_by_month?month=' +
+                this.search_report.month);
             this.reports.revenue_by = await response.json();
         },
-        getRevenueByAirline: async function () {
-            response = await fetch('/admin/report/revenue_by_airline?airline_id='
-                + this.search_report.airline_id);
+        getRevenueByAirline: async function() {
+            response = await fetch('/admin/report/revenue_by_airline?airline_id=' +
+                this.search_report.airline_id);
             this.reports.revenue_by = await response.json();
         },
-        getRevenueByFlight: async function () {
-            response = await fetch('/admin/report/revenue_by_flight?airline_id='
-                + this.search_report.airline_id
-                + '&flight_id=' + this.search_report.flight_id);
+        getRevenueByFlight: async function() {
+            response = await fetch('/admin/report/revenue_by_flight?airline_id=' +
+                this.search_report.airline_id +
+                '&flight_id=' + this.search_report.flight_id);
             this.reports.revenue_by = await response.json();
         },
-        getRevenueByCustomer: async function () {
-            response = await fetch('/admin/report/revenue_by_customer?username='
-                + this.search_report.username);
+        getRevenueByCustomer: async function() {
+            response = await fetch('/admin/report/revenue_by_customer?username=' +
+                this.search_report.username);
             this.reports.revenue_by = await response.json();
         },
-        loadUser: async function () {
+        loadUser: async function() {
             response = await fetch('/admin/user');
             this.users = await response.json();
         },
-        editUser: function (user) {
+        editUser: function(user) {
             let u = Object.assign({}, user);
             this.edit_user = u;
             this.showUserEditor = true;
         },
-        upsertUser: async function () {
+        upsertUser: async function() {
             if (this.edit_user.username == null) {
                 this.displayMessage("Error: A username is required.", "error");
                 return;
@@ -139,7 +142,7 @@ var appVM = new Vue({
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
                     'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 redirect: 'follow', // manual, *follow, error
                 referrer: 'no-referrer', // no-referrer, *client
@@ -150,7 +153,7 @@ var appVM = new Vue({
             this.loadUser();
             this.showUserEditor = false;
         },
-        deleteUser: async function (u) {
+        deleteUser: async function(u) {
             let response = await fetch("/admin/user", {
                 method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
                 mode: 'cors', // no-cors, *cors, same-origin
@@ -158,7 +161,7 @@ var appVM = new Vue({
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
                     'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 redirect: 'follow', // manual, *follow, error
                 referrer: 'no-referrer', // no-referrer, *client
@@ -166,9 +169,9 @@ var appVM = new Vue({
             });
             await response.json();
             this.loadUser();
-            console.log("Deleted user: " + u);
+            console.log("deleted user: " + u);
         },
-        loadFlight: async function () {
+        loadFlight: async function() {
             // fetch airlines
             let airports = [];
             response = await fetch('/flight');
@@ -183,8 +186,8 @@ var appVM = new Vue({
             });
             this.flights = flights;
         },
-        getFlight: function (f) {
-            console.log("Get flight: " + f);
+        getFlight: function(f) {
+            console.log("get flight: " + f);
             let ff = this.flights[f.split('-')[0] + '-' + f.split('-')[1] + '-' + f.split('-')[2]];
             if (!ff) {
                 console.log("Error: " + f);
@@ -192,24 +195,24 @@ var appVM = new Vue({
             }
             return ff;
         },
-        toReservation: async function () {
+        toReservation: async function() {
             let url = '/admin/reservation?';
-            if (this.search_reservation.username != null
-                && this.search_reservation.username.length > 0
+            if (this.search_reservation.username != null &&
+                this.search_reservation.username.length > 0
             ) {
                 url += 'username=' + this.search_reservation.username;
-            } else if (this.search_reservation.airline_id != null
-                && this.search_reservation.airline_id.length > 0
-                && this.search_reservation.flight_id != null
-                && this.search_reservation.flight_id.length > 0
-                && this.search_reservation.departure_date != null
-                && this.search_reservation.departure_date.length > 0
+            } else if (this.search_reservation.airline_id != null &&
+                this.search_reservation.airline_id.length > 0 &&
+                this.search_reservation.flight_id != null &&
+                this.search_reservation.flight_id.length > 0 &&
+                this.search_reservation.departure_date != null &&
+                this.search_reservation.departure_date.length > 0
             ) {
                 url += 'airline_id=' + this.search_reservation.airline_id;
                 url += '&flight_id=' + this.search_reservation.flight_id;
                 url += '&departure_date=' + this.search_reservation.departure_date;
             } else {
-                this.displayMessage("Must include a customer username or flight information to search reservations.");
+                this.displayMessage("Must include customer username or flight information to search reservations!");
                 return;
             }
             let response = await fetch(url);
@@ -217,15 +220,15 @@ var appVM = new Vue({
             this.tickets = [];
             this.currentPage = 'reservation';
         },
-        deleteReservation: async function (id) {
+        deleteReservation: async function(id) {
             let response = await fetch("/reservation/" + id, {
                 method: 'DELETE'
             });
             await response.json();
-            console.log("Deleted reservation: " + id);
+            console.log("deleted reservation: " + id);
             this.toReservation();
         },
-        getTickets: async function (id) {
+        getTickets: async function(id) {
             fetch('/admin/tickets/' + id)
                 .then((response) => {
                     response.json().then((data) => {
@@ -233,39 +236,39 @@ var appVM = new Vue({
                     });
                 });
         },
-        getDepartureDate: function (f) {
+        getDepartureDate: function(f) {
             let departure_date = convertDate(this.getRouteDate(f));
             let departure_weekday = (departure_date.getDay() + 6) % 7;
             let flight = this.flights[f.split('-')[0] + '-' + f.split('-')[1] + '-' + f.split('-')[2]];
             departure_date.setDate(departure_date.getDate() + (flight.departure_weekday - departure_weekday + 7) % 7);
             return yyyymmdd(departure_date);
         },
-        getArrivalDate: function (f) {
+        getArrivalDate: function(f) {
             let departure_date = convertDate(this.getDepartureDate(f));
             let departure_weekday = (departure_date.getDay() + 6) % 7;
             let flight = this.flights[f.split('-')[0] + '-' + f.split('-')[1] + '-' + f.split('-')[2]];
             departure_date.setDate(departure_date.getDate() + (flight.arrival_weekday - departure_weekday + 7) % 7);
             return yyyymmdd(departure_date);
         },
-        getRouteDate: function (f) {
+        getRouteDate: function(f) {
             return f.split('-')[3];
         },
-        clearCart: function () {
+        clearCart: function() {
             this.cart = [];
             localStorage.setItem('myCart', JSON.stringify(this.cart));
         },
-        logout: function () {
+        logout: function() {
             this.clearCart();
         },
-        isAdmin: function () {
+        isAdmin: function() {
             return this.user && this.user.roles &&
                 this.user.roles.includes('admin');
         },
-        isCustomerRep: function () {
+        isCustomerRep: function() {
             return this.user && this.user.roles &&
                 this.user.roles.includes('customer_representative');
         },
-        displayMessage: function (message, error) {
+        displayMessage: function(message, error) {
             this.message = message;
             this.showMessage = true;
             if (error)
@@ -274,7 +277,7 @@ var appVM = new Vue({
                 this.errorMessage = false;
             setTimeout(this.hideMessage, 3000);
         },
-        hideMessage: function () {
+        hideMessage: function() {
             this.showMessage = false;
         },
     }

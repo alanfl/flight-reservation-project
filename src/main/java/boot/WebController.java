@@ -16,9 +16,9 @@ public class WebController {
     private static final Logger log = LoggerFactory.getLogger(WebController.class);
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String home(Model model)
+    public String home(Model model) 
     {
-        // return view name pointing to static page index.html
+        // to redirect a static html page index.html
         return "redirect:index.html";
     }
 
@@ -30,7 +30,10 @@ public class WebController {
     {
         aus.save(new AppUser(username, password));
 
-        // return view name pointing to templates/hello.html
+        // to redirect a static html page index.html
+        // return "redirect:index.html";
+
+        // return view name pointing to templates/login.html
         return "login";
     }
 }
