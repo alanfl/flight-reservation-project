@@ -20,7 +20,7 @@ var appVM = new Vue({
         }, // search form
         flightlist: [],
         search_reservation: {
-            username: 'ad',
+            username: null,
             airline_id: null,
             flight_id: null,
             departure_date: null
