@@ -31,7 +31,7 @@ var appVM = new Vue({
         edit_flight: {}, // edit form
         showFlightEditor: false,
         search_reservation: {
-            username: 'cr'
+            username: null
         }, // search form
         reservations: [],
         tickets: {},

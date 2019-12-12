@@ -109,36 +109,33 @@
                 <div class="search">
                     <div>
                         <span class="airport" id="departure_airport">
-                            <input type="text" placeholder="Departure Airport/City" v-model="departure_airport_id"
-                                v-on:focus="$event.target.select()" v-on:click="show_departure_airport=true"
-                                v-on:keyup.esc="show_departure_airport=false"
-                                v-on:keyup="departure_airport_id=departure_airport_id.toUpperCase()" />
-                            <div class="auto_airport" v-show="show_departure_airport">
-                                <p>Airports serving area:</p>
-                                <ul>
-                                    <li v-for="a in filteredDepartureAirport"
-                                        v-on:click="departure_airport_id=a.airport_id; show_departure_airport=false;">
-                                        {{ a.airport_id }} - {{ a.airport_name }}
-                                    </li>
-                                </ul>
-                            </div>
+                        <input type="text" placeholder="Departure Airport/City" v-model="departure_airport_id" v-on:focus="$event.target.select()" v-on:click="show_departure_airport=true" v-on:keyup.esc="show_departure_airport=false" v-on:keyup="departure_airport_id=departure_airport_id.toUpperCase()"
+                        />
+                        <div class="auto_airport" v-show="show_departure_airport">
+                            <p>Airports serving area:</p>
+                            <ul>
+                                <li v-for="a in filteredDepartureAirport" v-on:click="departure_airport_id=a.airport_id; show_departure_airport=false;">
+                                    {{ a.airport_id }} - {{ a.airport_name }}
+                                </li>
+                            </ul>
+                        </div>
                         </span>
                         <span class="airport" id="arrival_airport">
-                            <input type="text" placeholder="Arrival Airport/City" v-model="arrival_airport_id"
-                                v-on:focus="$event.target.select()" v-on:click="show_arrival_airport=true"
-                                v-on:keyup.esc="show_arrival_airport=false"
-                                v-on:keyup="arrival_airport_id=arrival_airport_id.toUpperCase()" />
-                            <div class="auto_airport" v-show="show_arrival_airport">
-                                <p>Airports serving area:</p>
-                                <ul>
-                                    <li v-for="a in filteredArrivalAirport"
-                                        v-on:click="arrival_airport_id=a.airport_id; show_arrival_airport=false;">
-                                        {{ a.airport_id }} - {{ a.airport_name }}
-                                    </li>
-                                </ul>
-                            </div>
+                        <input type="text" placeholder="Arrival Airport/City" v-model="arrival_airport_id" v-on:focus="$event.target.select()" v-on:click="show_arrival_airport=true" v-on:keyup.esc="show_arrival_airport=false" v-on:keyup="arrival_airport_id=arrival_airport_id.toUpperCase()"
+                        />
+                        <div class="auto_airport" v-show="show_arrival_airport">
+                            <p>Airports serving area:</p>
+                            <ul>
+                                <li v-for="a in filteredArrivalAirport" v-on:click="arrival_airport_id=a.airport_id; show_arrival_airport=false;">
+                                    {{ a.airport_id }} - {{ a.airport_name }}
+                                </li>
+                            </ul>
+                        </div>
                         </span>
-                        <input type="date" name="departure_date" v-model="departure_date" />
+                        <br/>
+                        <span>Departure Date:</span>
+                        <input type="date" name="departure_date" v-model="departure_date" /><br/>
+                        <span>Return Date:</span>
                         <input type="date" name="return_date" v-model="return_date" />
                     </div>
                     <div>

@@ -40,7 +40,7 @@ var appVM = new Vue({
         flights: [],
         result: [],
         cart: [],
-        customer: 'cr',
+        customer: 'rep',
         seat_class: "first",
         special_meal: "vegetarian",
         number_of_seats: 1,
